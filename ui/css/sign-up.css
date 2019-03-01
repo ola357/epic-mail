@@ -1,0 +1,48 @@
+*{
+    margin: 0;
+    padding:0;
+    box-sizing: border-box;
+}
+.sign-up{
+    /* display: flex;
+    flex-direction: column; */
+    padding: 16px;
+    height: 90vh;
+}
+.form-caption{
+    margin:16px;
+}
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 16px;
+    margin: 16px 0px;
+    display: inline-block;
+    border: 0.5px solid #e6e3e3;
+    border-radius: 5px;
+  }
+  .form-control{
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-top: 16px;
+      padding: 16px;
+  }
+  .form-control > a{
+      text-decoration: none;
+  }
+  .form-control > input{
+      width: 90px;
+      height: 40px;
+      border-radius: 5px;
+      background-color: blue;
+      border: none;
+      color: #fff
+  }
+  .footer{
+      display: flex;
+      height: 10vh;
+      justify-content: center;
+      align-items: center;
+      background-color: aqua;
+
+  }
