@@ -1,0 +1,73 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+a{
+    text-decoration: none;
+}
+li{
+    list-style: none;
+}
+.header{
+    display: flex;
+justify-content: space-between;
+align-items: baseline;
+margin: 16px 16px 16px 16px;
+}
+.logo{
+    display: inline-block;
+    font-size: 20px;
+    color: #D61A46;
+    border: 5px solid #D61A46;
+    padding: 5px;
+}
+.controls{
+    border-bottom: 1px solid lightgray;
+    border-top: 1px solid lightgray;
+    padding-top: 8px;
+}
+.sidepanel-control, .compose{
+    display: inline-block;
+}
+.sidepanel-control{
+    margin-left: 16px;
+}
+.fa-bars{
+   font-size: 24px; 
+}
+.compose{
+background-color: #D61A46; 
+  border: none; 
+  color: white; 
+  padding: 8px 12px;
+  font-size: 16px; 
+  cursor: pointer; 
+  margin-left: 16px;
+  margin-bottom: 8px;
+
+}
+.content{
+    width: 100%;
+    display: flex;
+}
+.sidepanel{
+    height: 80vh;
+    width: 20%;
+    padding-left: 8px;
+    border-right: 1px solid lightgrey;
+    /* background-color: darkorange; */
+}
+.sidepanel > li{
+    text-align: left;
+    margin-top: 8px;
+}
+.mails{
+   
+    overflow-x: auto;
+    /* background-color: indianred; */
+    height: 80vh;
+    width: 70%;
+}
+td{
+    overflow: visible;
+}

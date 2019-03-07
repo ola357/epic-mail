@@ -1,12 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" 
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+        crossorigin="anonymous">
+    <!-- embedded style sheet -->
+    <link rel="stylesheet" href="css/account.css">
     <title>Mail Account</title>
 </head>
+
 <body>
-    
+    <!-- header -->
+    <div class="header">
+        <a href="" class="logo">EpicMail</a>
+        <div class="user">
+          <span class="user-name">Ola357</span>
+        </div>
+    </div>
+    <!-- buttons and controls -->
+    <div class="controls">
+        <span class="sidepanel-control" id="sidepanel-control"><i class="fas fa-bars"></i></span>
+        <span class="compose">compose</span>
+    </div>
+    <!-- main section container(sidepanel and mails) -->
+    <div class="content">
+        <ul class="sidepanel" id="sidepanel">
+            <li>Inbox</li>
+            <li>Draft</li>
+            <li>Sent</li>
+        </ul>
+        <div class="mails">
+            <table>
+                <tr>
+                    <td><input type="checkbox" name="select" id="select"></td>
+                    <td class="sender">Oluwaseun Alli</td>
+                    <td class="subject">Hello</td>
+                    <td class="date">05/03/2019</td>
+                    <td class="time">09:19</td>
+                    <td><i class="fas fa-trash-alt"></i></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <script src="js/account.js"></script>
 </body>
+
 </html>
