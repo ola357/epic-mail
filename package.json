@@ -1,0 +1,29 @@
+{
+  "name": "epic-mail",
+  "version": "1.0.0",
+  "description": "web app that helps people exchange messages/information over the internet",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --exec babel-node server/app.js",
+    "build": "babel server --out-dir dist",
+    "serve": "node dist/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ola357/epic-mail.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ola357/epic-mail/issues"
+  },
+  "homepage": "https://github.com/ola357/epic-mail#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.3.4",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.3.4"
+  }
+}
