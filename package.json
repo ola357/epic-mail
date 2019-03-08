@@ -4,7 +4,7 @@
   "description": "web app that helps people exchange messages/information over the internet",
   "main": "index.js",
   "scripts": {
-    "test": "nyc --reporter=lcov --reporter=text-lcov mocha --require @babel/register",
+    "test": "nyc --reporter=lcov --reporter=text-lcov mocha --require @babel/register --timeout 40000",
     "start": "nodemon --exec babel-node server/app.js",
     "build": "babel server --out-dir dist",
     "serve": "node dist/app.js"
@@ -26,6 +26,8 @@
     "@babel/node": "^7.2.2",
     "@babel/preset-env": "^7.3.4",
     "@babel/register": "^7.0.0",
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
     "eslint": "^5.15.1",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.16.0",
