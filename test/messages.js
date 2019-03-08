@@ -15,7 +15,7 @@ describe('/api/v1/messages', () => {
   beforeEach((done) => { // Before each test we empty the database
     // eslint-disable-next-line no-unused-vars
     // eslint-disable-next-line global-require
-    server = require('../server/app');
+    server = require('../server/app').default.default;
     done();
   });
   afterEach(() => {

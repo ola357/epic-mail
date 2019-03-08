@@ -1,8 +1,12 @@
-import http from 'http';
+import express, { json } from 'express';
+// import messages from './routes/messages';
 
-http.createServer((req, res) => {
-  res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end('Hello World\n');
-}).listen(1337, '127.0.0.1');
+const app = express();
 
-console.log('Server running at http://127.0.0.1:1337/');
+app.use(json());
+// app.use('/api/v1/messages', messages);
+
+const port = process.env.PORT || 3000;
+// eslint-disable-next-line no-console
+const server = app.listen(port, () => console.log(`Listening on port ${port}...`));
+export default server;
