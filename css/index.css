@@ -12,21 +12,22 @@ li{
 .header{
     display: flex;
     justify-content: space-between;
-    background-color: crimson;
+    /* background-color: crimson; */
     
 }
 .logo{
-    border: 5px solid rgb(142, 162, 250);
+    border: 5px solid #D61A46;
     margin: 16px;
     font-size: 20px;
     padding: 8px;
     display: inline-block;
+    color: #D61A46;
 }
 .nav-links{
      /* display: flex; */
      margin-top: 0;
      margin-bottom: 0;
-     background-color: deeppink;
+     /* background-color: deeppink; */
 }
 .links{
     display: inline-block;
@@ -39,15 +40,17 @@ li{
     display: none
 }
 .signup{
-    background-color: rgb(136, 152, 243);
+    background-color: #D61A46;
     width: 100px;
+    color: #ffffff;
 }
 .mobile-link{
     display: block;
-    background-color: rgb(213, 247, 247);
+    background-color: hsla(0, 100%, 90%, 0.3);;
     height: 50px;
    padding-left: 10px;
    padding-top: 10px;
+   color: hsl(0, 100%, 30%);
 }
 .banner{
     height: 80vh;
@@ -61,6 +64,6 @@ li{
     height: 10vh;
     justify-content: center;
     align-items: center;
-    background-color: aqua;
+    background-color: #D61A46;
 
 }

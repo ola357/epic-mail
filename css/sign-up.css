@@ -34,7 +34,7 @@ input[type=text], input[type=password] {
       width: 90px;
       height: 40px;
       border-radius: 5px;
-      background-color: blue;
+      background-color: #D61A46;
       border: none;
       color: #fff
   }
@@ -43,6 +43,6 @@ input[type=text], input[type=password] {
       height: 10vh;
       justify-content: center;
       align-items: center;
-      background-color: aqua;
+      background-color: #D61A46;
 
   }
