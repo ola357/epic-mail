@@ -13,13 +13,16 @@
     "@babel/core": "^7.3.4",
     "@babel/node": "^7.2.2",
     "@babel/preset-env": "^7.3.4",
+    "@babel/register": "^7.0.0",
     "eslint": "^5.15.1",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.16.0",
-    "nodemon": "^1.18.10"
+    "mocha": "^6.0.2",
+    "nodemon": "^1.18.10",
+    "nyc": "^13.3.0"
   },
   "scripts": {
-    "test": "mocha",
+    "test": "nyc mocha --require @babel/register --timeout=10000",
     "start": "nodemon --exec babel-node server/app.js",
     "build": "babel server --out-dir dist",
     "serve": "node dist/app.js"
