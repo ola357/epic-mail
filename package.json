@@ -1,0 +1,30 @@
+{
+  "name": "epic-mail",
+  "version": "1.0.0",
+  "description": "web app that helps people exchange messages/information over the internet",
+  "main": "index.js",
+  "dependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "eslint": "^5.15.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ola357/epic-mail.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ola357/epic-mail/issues"
+  },
+  "homepage": "https://github.com/ola357/epic-mail#readme"
+}
