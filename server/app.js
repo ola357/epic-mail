@@ -1,8 +1,10 @@
 import express, { json } from 'express';
+import messages from './routes/messages';
 
 const app = express();
 
 app.use(json());
+app.use('/api/v1/messages', messages);
 
 const port = process.env.PORT || 3000;
 
