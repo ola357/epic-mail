@@ -1,10 +1,12 @@
 import express, { json } from 'express';
 import messages from './routes/messages';
+import auth from './routes/auth';
 
 const app = express();
 
 app.use(json());
 app.use('/api/v1/messages', messages);
+app.use('/api/v1/auth', auth);
 
 const port = process.env.PORT || 3000;
 
