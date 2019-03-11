@@ -33,6 +33,9 @@
     "serve": "node dist/app.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
+  "engines":{
+    "node": "10.15.1"
+},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ola357/epic-mail.git"

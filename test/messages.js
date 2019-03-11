@@ -61,7 +61,7 @@ describe('Messages', () => {
     });
     it('it give an error when wrong id is sent', (done) => {
       request(server)
-        .get('/api/v1/parties/46')
+        .get('/api/v1/messages/46')
         .end((err, res) => {
           res.should.have.status(404);
           done();

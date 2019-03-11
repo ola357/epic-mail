@@ -8,7 +8,7 @@ app.use(json());
 app.use('/api/v1/messages', messages);
 app.use('/api/v1/auth', auth);
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 
 const server = app.listen(port, () => console.log(`Listening on port ${port}...`));
 export default server;

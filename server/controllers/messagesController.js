@@ -1,8 +1,9 @@
 import messages from '../models/messages';
 import validate from '../validators/validate';
 
-const messagesController = {
-  getRecievedMessages: (req, res) => {
+
+class messagesController {
+  static getRecievedMessages(req, res) {
     const inbox = [];
     for (let index = 0; index < messages.length; index += 1) {
       if (messages[index].status === 'read' || messages[index].status === 'unread') {
@@ -10,8 +11,9 @@ const messagesController = {
       }
     }
     res.status(200).send({ status: 200, data: inbox });
-  },
-  getUnreadMessages: (req, res) => {
+  }
+
+  static getUnreadMessages(req, res) {
     const inbox = [];
     for (let index = 0; index < messages.length; index += 1) {
       if (messages[index].status === 'unread') {
@@ -19,8 +21,9 @@ const messagesController = {
       }
     }
     res.status(200).send({ status: 200, data: inbox });
-  },
-  getSentMessages: (req, res) => {
+  }
+
+  static getSentMessages(req, res) {
     const sent = [];
     for (let index = 0; index < messages.length; index += 1) {
       if (messages[index].status === 'sent') {
@@ -28,8 +31,9 @@ const messagesController = {
       }
     }
     res.status(200).send({ status: 200, data: sent });
-  },
-  getSpecificMessage: (req, res) => {
+  }
+
+  static getSpecificMessage(req, res) {
     const message = messages.find(inbox => inbox.id === parseInt(req.params.id, 10));
     if (!message) {
       return res.status(404).send({
@@ -49,22 +53,25 @@ const messagesController = {
         status: message.status,
       }],
     });
-  },
-  createNewMessage: (req, res) => {
+  }
+
+  static createNewMessage(req, res) {
     const { error } = validate.createMessage(req.body);
     if (error) return res.status(400).send({ status: 400, error: error.details[0].message });
-    const message = {
+    const { subject, message, status } = req.body;
+    const email = {
       id: messages.length + 1,
       createdOn: Date.now(),
-      subject: req.body.subject,
-      message: req.body.message,
+      subject,
+      message,
       parentMessageId: 1,
-      status: req.body.status,
+      status,
     };
-    messages.push(message);
-    res.send({ status: 200, data: [message] });
-  },
-  deleteSpecificMessage: (req, res) => {
+    messages.push(email);
+    res.send({ status: 200, data: [email] });
+  }
+
+  static deleteSpecificMessage(req, res) {
     const message = messages.find(inbox => inbox.id === parseInt(req.params.id, 10));
     if (!message) {
       return res.status(404).send({
@@ -76,7 +83,6 @@ const messagesController = {
     const index = messages.indexOf(message);
     messages.splice(index, 1);
     res.send({ status: 200, data: [{ id: message.id, message: `${message.id} has been deleted` }] });
-  },
-};
-
+  }
+}
 export default messagesController;
