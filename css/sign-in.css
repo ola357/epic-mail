@@ -5,12 +5,28 @@
 }
 a{text-decoration: none;}
 /* end ogf general styling */
+.header{
+    display: flex;
+justify-content: space-between;
+align-items: baseline;
+margin: 16px 16px 16px 16px;
+padding-bottom: 8px;
+border-bottom: 1px solid rgb(177, 174, 174);
+}
+.logo{
+    display: inline-block;
+    font-size: 20px;
+    color: rgba(255, 0, 0, 0.7);
+    border: 5px solid rgba(255, 0, 0, 0.7);;
+    padding: 5px;
+}
 .sign-in{
     padding: 16px;
     height: 90vh;
 }
 .form-caption{
     margin:16px;
+    color: rgba(255, 0, 0, 0.7);
 }
 input[type=text], input[type=password] {
     width: 100%;
@@ -24,6 +40,9 @@ input[type=text], input[type=password] {
       display: flex;
       justify-content: flex-end;
   }
+  .forgot-password > a > i{
+      color: rgba(255, 0, 0, 0.7);
+  }
 
   .form-control{
       display: flex;
@@ -34,12 +53,13 @@ input[type=text], input[type=password] {
   }
   .form-control > a{
       text-decoration: none;
+      color: rgba(255, 0, 0, 0.7);
   }
   .form-control > input{
       width: 90px;
       height: 40px;
       border-radius: 5px;
-      background-color: #D61A46;
+      background-color: rgba(255, 0, 0, 0.7);
       border: none;
       color: #fff
   }
@@ -48,6 +68,6 @@ input[type=text], input[type=password] {
       height: 10vh;
       justify-content: center;
       align-items: center;
-      background-color: #D61A46;
+      background-color: rgba(255, 0, 0, 0.7);
 
   }
