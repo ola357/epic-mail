@@ -33,7 +33,7 @@ li{
     display: inline-block;
     text-align: center;
     height: 100%;
-    padding: 20px 4px 0px 4px;
+    padding: 28px 4px 0px 4px;
 }
 .signin{
     background-color: rgb(84, 137, 250);
@@ -58,6 +58,22 @@ li{
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    padding: 20px 16px 0px 16px;
+    
+}
+.ad-words{
+    font-size: 44px;
+    color: rgba(255, 0, 0, 0.6);
+    
+}
+.ad-button{
+    background-color: rgba(255, 0, 0, 0.6);
+    text-align: center;
+    width: 200px;
+    font-size: 30px;
+    margin-top: 40px;
+    color: #ffffff;
+    padding: 10px 0px;
 }
 .footer{
     display: flex;
