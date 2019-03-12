@@ -1,5 +1,5 @@
 import messages from '../models/messages';
-import Validate from '../validators/Validate';
+import Validate from '../validators/validate';
 
 
 class MessagesController {
