@@ -4,6 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+require('@babel/polyfill');
 
 var _objectEncrypter = _interopRequireDefault(require("object-encrypter"));
 
