@@ -7,7 +7,7 @@ exports.default = void 0;
 
 var _messages = _interopRequireDefault(require("../models/messages"));
 
-var _validate = _interopRequireDefault(require("../validators/validate"));
+var _Validate = _interopRequireDefault(require("../validators/Validate"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -17,14 +17,14 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var messagesController =
+var MessagesController =
 /*#__PURE__*/
 function () {
-  function messagesController() {
-    _classCallCheck(this, messagesController);
+  function MessagesController() {
+    _classCallCheck(this, MessagesController);
   }
 
-  _createClass(messagesController, null, [{
+  _createClass(MessagesController, null, [{
     key: "getRecievedMessages",
     value: function getRecievedMessages(req, res) {
       var inbox = [];
@@ -102,8 +102,8 @@ function () {
   }, {
     key: "createNewMessage",
     value: function createNewMessage(req, res) {
-      var _validate$createMessa = _validate.default.createMessage(req.body),
-          error = _validate$createMessa.error;
+      var _Validate$createMessa = _Validate.default.createMessage(req.body),
+          error = _Validate$createMessa.error;
 
       if (error) return res.status(400).send({
         status: 400,
@@ -157,8 +157,8 @@ function () {
     }
   }]);
 
-  return messagesController;
+  return MessagesController;
 }();
 
-var _default = messagesController;
+var _default = MessagesController;
 exports.default = _default;

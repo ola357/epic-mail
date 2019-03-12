@@ -10,7 +10,6 @@ class MessagesController {
         inbox.push(messages[index]);
       }
     }
-    console.log(res);
     res.status(200).send({ status: 200, data: inbox });
   }
 

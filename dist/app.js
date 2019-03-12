@@ -19,6 +19,9 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 var app = (0, _express.default)();
 app.use((0, _express.json)());
+app.use((0, _express.urlencoded)({
+  extended: true
+}));
 app.use('/api/v1/messages', _messages.default);
 app.use('/api/v1/auth', _auth.default);
 var port = process.env.PORT || 5000;

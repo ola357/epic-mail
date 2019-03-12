@@ -15,14 +15,14 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var validate =
+var Validate =
 /*#__PURE__*/
 function () {
-  function validate() {
-    _classCallCheck(this, validate);
+  function Validate() {
+    _classCallCheck(this, Validate);
   }
 
-  _createClass(validate, null, [{
+  _createClass(Validate, null, [{
     key: "userSignup",
     value: function userSignup(user) {
       var schema = {
@@ -54,8 +54,8 @@ function () {
     }
   }]);
 
-  return validate;
+  return Validate;
 }();
 
-var _default = validate;
+var _default = Validate;
 exports.default = _default;

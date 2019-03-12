@@ -9,7 +9,7 @@ var _objectEncrypter = _interopRequireDefault(require("object-encrypter"));
 
 var _bcrypt = _interopRequireDefault(require("bcrypt"));
 
-var _validate = _interopRequireDefault(require("../validators/validate"));
+var _Validate = _interopRequireDefault(require("../validators/Validate"));
 
 var _users = require("../models/users");
 
@@ -27,26 +27,26 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 var engine = (0, _objectEncrypter.default)('my secret');
 
-var authControllers =
+var AuthControllers =
 /*#__PURE__*/
 function () {
-  function authControllers() {
-    _classCallCheck(this, authControllers);
+  function AuthControllers() {
+    _classCallCheck(this, AuthControllers);
   }
 
-  _createClass(authControllers, null, [{
+  _createClass(AuthControllers, null, [{
     key: "userSignUp",
     value: function () {
       var _userSignUp = _asyncToGenerator(
       /*#__PURE__*/
       regeneratorRuntime.mark(function _callee(req, res) {
-        var _validate$userSignup, error, _req$body, email, firstName, lastName, password, user, token;
+        var _Validate$userSignup, error, _req$body, email, firstName, lastName, password, user, token;
 
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _validate$userSignup = _validate.default.userSignup(req.body), error = _validate$userSignup.error;
+                _Validate$userSignup = _Validate.default.userSignup(req.body), error = _Validate$userSignup.error;
 
                 if (!error) {
                   _context.next = 3;
@@ -122,13 +122,13 @@ function () {
       var _userLogin = _asyncToGenerator(
       /*#__PURE__*/
       regeneratorRuntime.mark(function _callee2(req, res) {
-        var _validate$userLogin, error, _req$body2, email, password, user, validPassword, token;
+        var _Validate$userLogin, error, _req$body2, email, password, user, validPassword, token;
 
         return regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _validate$userLogin = _validate.default.userLogin(req.body), error = _validate$userLogin.error;
+                _Validate$userLogin = _Validate.default.userLogin(req.body), error = _Validate$userLogin.error;
 
                 if (!error) {
                   _context2.next = 3;
@@ -198,8 +198,8 @@ function () {
     }()
   }]);
 
-  return authControllers;
+  return AuthControllers;
 }();
 
-var _default = authControllers;
+var _default = AuthControllers;
 exports.default = _default;
