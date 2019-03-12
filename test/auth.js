@@ -24,6 +24,8 @@ describe('Authentication', () => {
         .send(user)
         .end((err, res) => {
           res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.should.be.json;
           done();
         });
     });
@@ -39,6 +41,8 @@ describe('Authentication', () => {
         .send(user)
         .end((err, res) => {
           res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.should.be.json;
           done();
         });
     });
@@ -48,6 +52,8 @@ describe('Authentication', () => {
         .send(users[1])
         .end((err, res) => {
           res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.should.be.json;
           done();
         });
     });
@@ -64,6 +70,8 @@ describe('Authentication', () => {
         .send(user)
         .end((err, res) => {
           res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.should.be.json;
           done();
         });
     });
@@ -77,6 +85,8 @@ describe('Authentication', () => {
         .send(user)
         .end((err, res) => {
           res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.should.be.json;
           done();
         });
     });
@@ -90,6 +100,8 @@ describe('Authentication', () => {
         .send(user)
         .end((err, res) => {
           res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.should.be.json;
           done();
         });
     });
@@ -103,6 +115,8 @@ describe('Authentication', () => {
         .send(user)
         .end((err, res) => {
           res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.should.be.json;
           done();
         });
     });

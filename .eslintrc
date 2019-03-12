@@ -3,7 +3,8 @@
         "no-console":"off",
         "no-undef":"off",
         "quotes":"off",
-        "consistent-return":"off"
+        "consistent-return":"off",
+        "no-unused-expressions":"off"
         
     }
 }

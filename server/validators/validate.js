@@ -1,7 +1,7 @@
 import Joi from 'joi';
 
 
-class validate {
+class Validate {
   static userSignup(user) {
     const schema = {
       email: Joi.string().email().required(),
@@ -29,4 +29,4 @@ class validate {
     return Joi.validate(message, schema);
   }
 }
-export default validate;
+export default Validate;

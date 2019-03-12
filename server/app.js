@@ -1,11 +1,12 @@
 import '@babel/polyfill';
-import express, { json } from 'express';
+import express, { json, urlencoded } from 'express';
 import messages from './routes/messages';
 import auth from './routes/auth';
 
 const app = express();
 
 app.use(json());
+app.use(urlencoded({ extended: true }));
 app.use('/api/v1/messages', messages);
 app.use('/api/v1/auth', auth);
 

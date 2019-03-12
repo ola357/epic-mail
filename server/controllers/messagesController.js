@@ -1,8 +1,8 @@
 import messages from '../models/messages';
-import validate from '../validators/validate';
+import Validate from '../validators/Validate';
 
 
-class messagesController {
+class MessagesController {
   static getRecievedMessages(req, res) {
     const inbox = [];
     for (let index = 0; index < messages.length; index += 1) {
@@ -10,6 +10,7 @@ class messagesController {
         inbox.push(messages[index]);
       }
     }
+    console.log(res);
     res.status(200).send({ status: 200, data: inbox });
   }
 
@@ -56,7 +57,7 @@ class messagesController {
   }
 
   static createNewMessage(req, res) {
-    const { error } = validate.createMessage(req.body);
+    const { error } = Validate.createMessage(req.body);
     if (error) return res.status(400).send({ status: 400, error: error.details[0].message });
     const { subject, message, status } = req.body;
     const email = {
@@ -85,4 +86,4 @@ class messagesController {
     res.send({ status: 200, data: [{ id: message.id, message: `${message.id} has been deleted` }] });
   }
 }
-export default messagesController;
+export default MessagesController;

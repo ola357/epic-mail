@@ -1,18 +1,18 @@
 import express from 'express';
-import messagesController from '../controllers/messagesController';
+import MessagesController from '../controllers/MessagesController';
 
 const router = express.Router();
 
 
-router.get('/', messagesController.getRecievedMessages);
+router.get('/', MessagesController.getRecievedMessages);
 
-router.get('/unread', messagesController.getUnreadMessages);
+router.get('/unread', MessagesController.getUnreadMessages);
 
-router.get('/sent', messagesController.getSentMessages);
+router.get('/sent', MessagesController.getSentMessages);
 
-router.get('/:id', messagesController.getSpecificMessage);
+router.get('/:id', MessagesController.getSpecificMessage);
 
-router.post('/', messagesController.createNewMessage);
+router.post('/', MessagesController.createNewMessage);
 
-router.delete('/:id', messagesController.deleteSpecificMessage);
+router.delete('/:id', MessagesController.deleteSpecificMessage);
 export default router;

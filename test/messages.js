@@ -16,6 +16,8 @@ describe('Messages', () => {
         .get('/api/v1/messages')
         .end((err, res) => {
           res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.should.be.json;
           done();
         });
     });
@@ -29,6 +31,8 @@ describe('Messages', () => {
         .get('/api/v1/messages/unread')
         .end((err, res) => {
           res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.should.be.json;
           done();
         });
     });
@@ -42,6 +46,8 @@ describe('Messages', () => {
         .get('/api/v1/messages/sent')
         .end((err, res) => {
           res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.should.be.json;
           done();
         });
     });
@@ -64,6 +70,8 @@ describe('Messages', () => {
         .get('/api/v1/messages/46')
         .end((err, res) => {
           res.should.have.status(404);
+          res.body.should.be.a('object');
+          res.should.be.json;
           done();
         });
     });
@@ -83,6 +91,8 @@ describe('Messages', () => {
         .send(message)
         .end((err, res) => {
           res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.should.be.json;
           done();
         });
     });
@@ -97,6 +107,8 @@ describe('Messages', () => {
         .send(message)
         .end((err, res) => {
           res.should.have.status(400);
+          res.body.should.be.a('object');
+          res.should.be.json;
           done();
         });
     });
@@ -110,6 +122,8 @@ describe('Messages', () => {
         .delete('/api/v1/messages/2')
         .end((err, res) => {
           res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.should.be.json;
           done();
         });
     });
@@ -118,6 +132,8 @@ describe('Messages', () => {
         .delete('/api/v1/messages/27')
         .end((err, res) => {
           res.should.have.status(404);
+          res.body.should.be.a('object');
+          res.should.be.json;
           done();
         });
     });

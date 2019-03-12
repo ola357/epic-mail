@@ -1,14 +1,14 @@
 import encrypter from 'object-encrypter';
 import bcrypt from 'bcrypt';
 
-import validate from '../validators/validate';
+import Validate from '../validators/Validate';
 import { users, salt } from '../models/users';
 
 const engine = encrypter('my secret');
 
-class authControllers {
+class AuthControllers {
   static async userSignUp(req, res) {
-    const { error } = validate.userSignup(req.body);
+    const { error } = Validate.userSignup(req.body);
     if (error) return res.status(400).send({ status: 400, error: error.details[0].message });
 
     const {
@@ -31,7 +31,7 @@ class authControllers {
   }
 
   static async userLogin(req, res) {
-    const { error } = validate.userLogin(req.body);
+    const { error } = Validate.userLogin(req.body);
     if (error) return res.status(400).send({ status: 400, error: error.details[0].message });
     const { email, password } = req.body;
 
@@ -47,4 +47,4 @@ class authControllers {
   }
 }
 
-export default authControllers;
+export default AuthControllers;
