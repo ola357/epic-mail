@@ -4,6 +4,7 @@
   "description": "web app that helps people exchange messages/information over the internet",
   "main": "index.js",
   "dependencies": {
+    "@babel/polyfill": "^7.2.5",
     "bcrypt": "^3.0.4",
     "express": "^4.16.4",
     "joi": "^14.3.1",
@@ -13,7 +14,6 @@
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.3.4",
     "@babel/node": "^7.2.2",
-    "@babel/polyfill": "^7.2.5",
     "@babel/preset-env": "^7.3.4",
     "@babel/register": "^7.0.0",
     "chai": "^4.2.0",
@@ -33,9 +33,9 @@
     "serve": "node dist/app.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
-  "engines":{
+  "engines": {
     "node": "10.15.1"
-},
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ola357/epic-mail.git"

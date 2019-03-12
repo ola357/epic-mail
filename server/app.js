@@ -1,3 +1,4 @@
+import '@babel/polyfill';
 import express, { json } from 'express';
 import messages from './routes/messages';
 import auth from './routes/auth';

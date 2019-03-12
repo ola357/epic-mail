@@ -4,9 +4,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-require('@babel/polyfill');
-require('@babel/register');
-require('@babel/core');
+
+require("@babel/polyfill");
 
 var _express = _interopRequireWildcard(require("express"));
 
