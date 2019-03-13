@@ -36,7 +36,6 @@ li{
     padding: 28px 4px 0px 4px;
 }
 .signin{
-    background-color: rgb(84, 137, 250);
     display: none
 }
 .signup{
@@ -58,7 +57,7 @@ li{
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    padding: 20px 16px 0px 16px;
+    padding: 50px 16px 0px 16px;
     
 }
 .ad-words{
@@ -82,4 +81,35 @@ li{
     align-items: center;
     background-color: #D61A46;
 
+}
+@media screen and (min-width: 600px){
+.signin{
+    display: inline-block;
+    color: #D61A46;
+    margin-right: 32px;
+}
+.mobile-link{
+    display: none;
+
+}
+.banner{
+    padding-left: 64px;
+ }
+.ad-words{
+    margin-top: 32px;
+    margin-bottom: 64px;
+    width: 70%;
+}
+}
+@media screen and (min-width: 992px){
+    .banner{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .ad-words{
+        margin-bottom: 0px;
+        margin-top: 0px;
+    }
 }
