@@ -6,9 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- font awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" 
-        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
-        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <!-- embedded style sheet -->
     <link rel="stylesheet" href="css/account.css">
     <title>Mail Account</title>
@@ -19,13 +18,21 @@
     <div class="header">
         <a href="" class="logo">EpicMail</a>
         <div class="user">
-          <span class="user-name">Ola357</span>
+            <i class="fas fa-user-circle"></i>
+            <span class="user-name">Ola357</span>
         </div>
     </div>
     <!-- buttons and controls -->
     <div class="controls">
         <span class="sidepanel-control" id="sidepanel-control"><i class="fas fa-bars"></i></span>
-        <span class="compose">compose</span>
+        <span class="delete-selected">
+            <input type="checkbox" name="select-all" id="select-all">
+            <i class="fas fa-trash-alt"></i>
+            <i class="fas fa-envelope-open"></i>
+            <i class="fas fa-envelope"></i>
+        </span>
+        
+        <span class="compose"><i class="fas fa-pen"></i>compose</span>
     </div>
     <!-- main section container(sidepanel and mails) -->
     <div class="content">
