@@ -42,6 +42,9 @@ color: rgba(236, 15, 67, 0.7);
 }
 .delete-selected > i{
     font-size: 18px;
+    color: rgba(236, 15, 67, 0.7);
+    margin-left: 8px;
+    margin-right: 16px;
 }
 .controls {
     /* border-bottom: 1px solid lightgray; */
@@ -67,7 +70,7 @@ background-color: #D61A46;
   font-size: 12px; 
   cursor: pointer; 
   margin: 8px 2px 8px 2px;
-  width: 40px;
+  /* width: 50px; */
   text-align: center;
   border-radius: 8px;
 
@@ -78,14 +81,23 @@ background-color: #D61A46;
 }
 .sidepanel{
     height: 80vh;
-    width: 20%;
+    width: 30%;
     padding-left: 8px;
     border-right: 1px solid lightgrey;
     /* background-color: darkorange; */
 }
-.sidepanel > li{
-    text-align: left;
+.individuals{
+   background-color: aquamarine;
+}
+.groups{
+    background-color: lightgrey;
+    border-top: 1px solid grey;
+    margin-top: 32px;
+}
+.individuals > div{
+    text-align: center;
     margin-top: 8px;
+   
 }
 .mails{
    
