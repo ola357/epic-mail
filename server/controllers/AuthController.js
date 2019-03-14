@@ -1,10 +1,17 @@
 import encrypter from 'object-encrypter';
 import bcrypt from 'bcrypt';
 
-import Validate from '../validators/validate';
+import Validate from '../validators/Validates';
 import { users, salt } from '../models/users';
 
 const engine = encrypter('my secret');
+/**
+ * Class representing API endpoints for
+ * the route for Auth controller
+ * @param { object } request
+ * @param { object } response
+ * @returns { object } 
+ */
 
 class AuthControllers {
   static async userSignUp(req, res) {

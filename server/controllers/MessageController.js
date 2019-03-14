@@ -1,7 +1,16 @@
+
 import messages from '../models/messages';
-import Validate from '../validators/validate';
+import Validate from '../validators/Validates';
 
-
+/**
+ * Class representing API endpoints for
+ * the route for messages controller
+ * @param { array } inbox
+ * @param { array } sent
+ *  @param { object } request
+ * @param { object } response
+ * @returns { object } 
+ */
 class MessagesController {
   static getRecievedMessages(req, res) {
     const inbox = [];
