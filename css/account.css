@@ -80,32 +80,73 @@ background-color: #D61A46;
     display: flex;
 }
 .sidepanel{
-    height: 80vh;
-    width: 30%;
-    padding-left: 8px;
+    /* height: 80vh; */
+    width: 50%;
+    padding-left: 4px;
     border-right: 1px solid lightgrey;
     /* background-color: darkorange; */
 }
 .individuals{
-   background-color: aquamarine;
+ margin-bottom: 4px;
 }
 .groups{
-    background-color: lightgrey;
-    border-top: 1px solid grey;
-    margin-top: 32px;
+    border-top: 1px solid lightgrey;
+    padding-top: 20px;
+   
 }
 .individuals > div{
     text-align: center;
-    margin-top: 8px;
-   
+   padding: 10px;
+}
+.add-group{
+    background-color: #D61A46;
+    padding: 8px;
+    text-align: center;
+    font-size: 10px;
+    margin-right: 8px;
+    border-radius: 5px;
+}
+.group{
+    padding: 8px 4px 8px 4px;
+display: flex;
+flex-wrap: wrap;
+}
+.group > .fa-ellipsis-v{
+    align-self: flex-end;
+    padding: 4px;
+}
+.group-name{
+    width: 60px;
+    overflow: hidden;
+    text-overflow: clip;
+    padding: 4px; 
+}
+.group > .fa-users{
+    align-self: flex-start;
+    padding: 4px;
 }
 .mails{
    
     overflow-x: auto;
     /* background-color: indianred; */
-    height: 80vh;
-    width: 70%;
+    /* height: 80vh; */
+    width: 100%;
 }
 td{
-    overflow: visible;
+padding: 8px;
+white-space: nowrap;
+  width: 200px;
+  overflow: hidden;
+  text-overflow: clip; 
+}
+tr{
+background-color: beige;
+}
+.footer{
+    display: flex;
+    height: 10vh;
+    justify-content: center;
+    align-items: center;
+    background-color: #D61A46;
+
 }
