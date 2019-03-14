@@ -6,7 +6,9 @@ import Validate from '../validators/Validate';
  * the route for messages controller
  * @param { array } inbox
  * @param { array } sent
- * @return { object } response
+ *  @param { object } request
+ * @param { object } response
+ * @returns { object } 
  */
 class MessagesController {
   static getRecievedMessages(req, res) {

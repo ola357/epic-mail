@@ -8,8 +8,9 @@ const engine = encrypter('my secret');
 /**
  * Class representing API endpoints for
  * the route for Auth controller
-
- * @return { object } response
+ * @param { object } request
+ * @param { object } response
+ * @returns { object } 
  */
 
 class AuthControllers {
