@@ -19,7 +19,7 @@ coverage
 
 # ui templates
 ui
-ui/
+dist
 
 # nyc test coverage
 .nyc_output
