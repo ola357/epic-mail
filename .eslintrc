@@ -4,7 +4,9 @@
         "no-undef":"off",
         "quotes":"off",
         "consistent-return":"off",
-        "no-unused-expressions":"off"
+        "no-unused-expressions":"off",
+        "linebreak-style":"off",
+        "max-len":"off"
         
     }
 }
