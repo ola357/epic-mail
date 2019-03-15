@@ -3,6 +3,7 @@ import express, { json, urlencoded } from 'express';
 import messages from './routes/messages';
 import auth from './routes/auth';
 import groups from './routes/groups';
+import models from './models/models';
 
 const app = express();
 
@@ -11,6 +12,9 @@ app.use(urlencoded({ extended: true }));
 app.use('/api/v1/messages', messages);
 app.use('/api/v1/groups', groups);
 app.use('/api/v1/auth', auth);
+
+// create tables
+models();
 
 const port = process.env.PORT || 5000;
 
