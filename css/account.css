@@ -80,7 +80,7 @@ background-color: #D61A46;
     display: flex;
 }
 .sidepanel{
-    /* height: 80vh; */
+    height: 70vh;
     width: 50%;
     padding-left: 4px;
     border-right: 1px solid lightgrey;
@@ -92,15 +92,21 @@ background-color: #D61A46;
 .groups{
     border-top: 1px solid lightgrey;
     padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
    
 }
 .individuals > div{
     text-align: center;
    padding: 10px;
+   width: 100%;
 }
 .add-group{
     background-color: #D61A46;
     padding: 8px;
+    width: 60%;
     text-align: center;
     font-size: 10px;
     margin-right: 8px;
@@ -131,6 +137,7 @@ flex-wrap: wrap;
     /* background-color: indianred; */
     /* height: 80vh; */
     width: 100%;
+    margin-right: 4px;
 }
 td{
 padding: 8px;
@@ -149,4 +156,11 @@ background-color: beige;
     align-items: center;
     background-color: #D61A46;
 
+}
+
+
+@media screen and (min-width: 992px){
+    .sidepanel{
+        width: 25%;
+    }
 }
