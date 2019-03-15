@@ -64,15 +64,16 @@ color: rgba(236, 15, 67, 0.7);
 }
 .compose{
 background-color: #D61A46; 
+   cursor: pointer;
   border: none; 
   color: white; 
-  padding: 8px;
+  padding: 12px;
   font-size: 12px; 
   cursor: pointer; 
   margin: 8px 2px 8px 2px;
   /* width: 50px; */
   text-align: center;
-  border-radius: 8px;
+  border-radius: 5px;
 
 }
 .content{
@@ -135,7 +136,7 @@ flex-wrap: wrap;
    
     overflow-x: auto;
     /* background-color: indianred; */
-    /* height: 80vh; */
+    height: 80vh;
     width: 100%;
     margin-right: 4px;
 }
@@ -146,6 +147,7 @@ white-space: nowrap;
   overflow: hidden;
   text-overflow: clip; 
 }
+
 tr{
 background-color: beige;
 }
@@ -158,9 +160,89 @@ background-color: beige;
 
 }
 
+@media screen and (min-width: 600px){
+    .delete-selected {
+        margin-left: 150px;
+        }
+        .delete-selected > i{
+            margin-right: 38px;
+            font-size: 20px;
+        }
+        #select-all{
+            margin-right: 20px;
+        }
+        .sidepanel{
+            width: 30%;
+        }
+}
 
 @media screen and (min-width: 992px){
     .sidepanel{
         width: 25%;
     }
+    #select-all{
+        margin-right: 20px;
+    }
+    .delete-selected {
+    margin-left: 250px;
+    }
+    .delete-selected > i{
+        margin-right: 38px;
+        font-size: 20px;
+    }
+    .pick {
+        width: 50px;
+        text-align: center;
+    }
+    .time{
+        width: 80px;
+        text-align: center;
+    }
+    .trash{
+        width: 50px;
+        text-align: center;
+    }
 }
+
+/* modal code */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content/Box */
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+  }
+  
+  /* The Close Button */
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .modal-content > div {
+      background-color: aqua;
+      height: 20vh;
+  }
