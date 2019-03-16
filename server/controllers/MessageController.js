@@ -9,7 +9,7 @@ import Validate from '../validators/Validates';
  * @param { array } sent
  *  @param { object } request
  * @param { object } response
- * @returns { object } 
+ * @returns { object }
  */
 class MessagesController {
   static getRecievedMessages(req, res) {

@@ -10,7 +10,7 @@ const engine = encrypter('my secret');
  * the route for Auth controller
  * @param { object } request
  * @param { object } response
- * @returns { object } 
+ * @returns { object }
  */
 
 class AuthControllers {
