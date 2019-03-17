@@ -2,7 +2,7 @@ import encrypter from 'object-encrypter';
 import bcrypt from 'bcrypt';
 
 import Validate from '../validators/Validates';
-import { users, salt } from '../models/users';
+import db from '../models/db';
 
 const engine = encrypter('my secret');
 /**
@@ -19,35 +19,41 @@ class AuthControllers {
     if (error) return res.status(400).send({ status: 400, error: error.details[0].message });
 
     const {
-      email, firstName, lastName, password,
+      email, firstname, lastname, password,
     } = req.body;
 
-    let user = users.find(entry => entry.email === email);
-    if (user) return res.status(400).send({ status: 400, error: "user already exists" });
-    user = {
-      id: users.length + 1,
-      email,
-      firstName,
-      lastName,
-      password: await bcrypt.hash(password, salt),
-    };
-    users.push(user);
-    const token = engine.encrypt(user);
+    let user = await db.query(
+      'SELECT * FROM users WHERE email = ($1)', [email],
+    );
+    if (user.rowCount !== 0) return res.status(400).send({ status: 400, error: "user already exists" });
 
+    const hashpassword = await bcrypt.hash(password, 10);
+    user = await db.query(
+      `INSERT INTO "users" ("firstname", "lastname", "email", "password")
+      VALUES ('${firstname}','${lastname}', '${email}', '${hashpassword}') RETURNING *`,
+    );
+    // console.log(user);
+
+    const token = engine.encrypt(user);
+    await db.end();
     res.send({ status: 200, data: [{ token }] });
   }
 
   static async userLogin(req, res) {
     const { error } = Validate.userLogin(req.body);
     if (error) return res.status(400).send({ status: 400, error: error.details[0].message });
+
     const { email, password } = req.body;
 
+    const user = await db.query(
+      'SELECT * FROM users WHERE email = ($1)', [email],
+    );
+    console.log(user);
+    if (user.rowCount !== 1) return res.status(400).send('Invalid email or password');
 
-    const user = users.find(entry => entry.email === email);
-    if (!user) return res.status(400).send({ status: 400, error: "invalid email" });
 
-    const validPassword = await bcrypt.compare(password, user.password);
-    if (!validPassword) return res.status(400).send({ status: 400, error: "invalid password" });
+    const validPassword = await bcrypt.compare(password, user.rows[0].password);
+    if (!validPassword) return res.status(400).send({ status: 400, error: "invalid email or password" });
     const token = engine.encrypt(user);
 
     res.send({ status: 200, data: [{ token }] });
