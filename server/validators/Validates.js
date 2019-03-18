@@ -22,8 +22,10 @@ class Validate {
 
   static createMessage(message) {
     const schema = {
+      address: Joi.string().email().required(),
       subject: Joi.string().max(50).min(1).required(),
       message: Joi.string().max(300).min(1).required(),
+      parentMessageId: Joi.number().integer(),
       status: Joi.string().lowercase().regex(/(draft|sent)/).required(),
     };
     return Joi.validate(message, schema);

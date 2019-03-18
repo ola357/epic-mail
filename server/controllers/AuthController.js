@@ -1,10 +1,10 @@
-import encrypter from 'object-encrypter';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import config from 'config';
 
 import Validate from '../validators/Validates';
 import db from '../models/db';
 
-const engine = encrypter('my secret');
 /**
  * Class representing API endpoints for
  * the route for Auth controller
@@ -14,6 +14,11 @@ const engine = encrypter('my secret');
  */
 
 class AuthControllers {
+  /**
+ *
+ * POST /auth/signup
+ * Route for signing up new users
+ */
   static async userSignUp(req, res) {
     const { error } = Validate.userSignup(req.body);
     if (error) return res.status(400).send({ status: 400, error: error.details[0].message });
@@ -34,11 +39,20 @@ class AuthControllers {
     );
     // console.log(user);
 
-    const token = engine.encrypt(user);
-    await db.end();
-    res.send({ status: 200, data: [{ token }] });
+    const token = jwt.sign({
+      _id: user.rows[0].id,
+      _email: user.rows[0].email,
+    }, config.get('jwtPrivateKey'));
+
+    // await db.end();
+    res.header('x-auth-token', token).send({ status: 200, data: [{ token }] });
   }
 
+  /**
+ *
+ * POST /auth/login
+ * Route for login users
+ */
   static async userLogin(req, res) {
     const { error } = Validate.userLogin(req.body);
     if (error) return res.status(400).send({ status: 400, error: error.details[0].message });
@@ -48,14 +62,18 @@ class AuthControllers {
     const user = await db.query(
       'SELECT * FROM users WHERE email = ($1)', [email],
     );
-    console.log(user);
+    // console.log(user);
     if (user.rowCount !== 1) return res.status(400).send('Invalid email or password');
-
 
     const validPassword = await bcrypt.compare(password, user.rows[0].password);
     if (!validPassword) return res.status(400).send({ status: 400, error: "invalid email or password" });
-    const token = engine.encrypt(user);
 
+    const token = jwt.sign({
+      _id: user.rows[0].id,
+      _email: user.rows[0].email,
+    }, config.get('jwtPrivateKey'));
+
+    // await db.end();
     res.send({ status: 200, data: [{ token }] });
   }
 }

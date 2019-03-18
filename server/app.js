@@ -1,11 +1,16 @@
 import '@babel/polyfill';
 import express, { json, urlencoded } from 'express';
 import swaggerUi from 'swagger-ui-express';
+import config from 'config';
 import swaggerDocument from './swagger.json';
 import messages from './routes/messages';
 import auth from './routes/auth';
 
 const app = express();
+if (!config.get('jwtPrivateKey')) {
+  console.error("FATAL ERROR: jwtPrivateKey is not defined");
+  process.exit(1);
+}
 
 app.use(json());
 app.use(urlencoded({ extended: true }));
