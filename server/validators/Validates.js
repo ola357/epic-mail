@@ -20,6 +20,13 @@ class Validate {
     return Joi.validate(user, schema);
   }
 
+  static userReset(user) {
+    const schema = {
+      email: Joi.string().email().required(),
+    };
+    return Joi.validate(user, schema);
+  }
+
   static createMessage(message) {
     const schema = {
       address: Joi.string().email().required(),

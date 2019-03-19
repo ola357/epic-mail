@@ -78,6 +78,11 @@ class AuthControllers {
     // await db.end();
     res.send({ status: 200, data: [{ token }] });
   }
+
+  static async userResetPassword(req, res) {
+    const { error } = Validate.userReset(req.body);
+    if (error) return res.status(400).send({ status: 400, error: error.details[0].message });
+  }
 }
 
 export default AuthControllers;
