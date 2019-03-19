@@ -1,9 +1,11 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import config from 'config';
+import dotenv from 'dotenv';
 
 import Validate from '../validators/Validates';
 import db from '../models/db';
+
+dotenv.config();
 
 /**
  * Class representing API endpoints for
@@ -42,7 +44,7 @@ class AuthControllers {
     const token = jwt.sign({
       _id: user.rows[0].id,
       _email: user.rows[0].email,
-    }, config.get('jwtPrivateKey'));
+    }, process.env.jwtPrivateKey);
 
     // await db.end();
     res.header('x-auth-token', token).send({ status: 200, data: [{ token }] });
@@ -71,7 +73,7 @@ class AuthControllers {
     const token = jwt.sign({
       _id: user.rows[0].id,
       _email: user.rows[0].email,
-    }, config.get('jwtPrivateKey'));
+    }, process.env.jwtPrivateKey);
 
     // await db.end();
     res.send({ status: 200, data: [{ token }] });

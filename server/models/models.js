@@ -1,6 +1,15 @@
 import db from './db';
 
 const models = () => {
+  /* db.query(
+    `CREATE TABLE IF NOT EXISTS users(
+      id SERIAL PRIMARY KEY,
+      firstname VARCHAR NOT NULL,
+      lastname VARCHAR NOT NULL,
+      email VARCHAR NOT NULL UNIQUE,
+      password VARCHAR NOT NULL
+    )`,
+  ); */
   db.query(`CREATE TABLE IF NOT EXISTS "messages"(
     “id” SERIAL PRIMARY KEY,
     “createdon” timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP,

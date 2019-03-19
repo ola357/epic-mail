@@ -1,24 +1,29 @@
 import '@babel/polyfill';
 import express, { json, urlencoded } from 'express';
 import swaggerUi from 'swagger-ui-express';
-import config from 'config';
+import dotenv from 'dotenv';
 import swaggerDocument from './swagger.json';
 import messages from './routes/messages';
 import auth from './routes/auth';
 
 const app = express();
-if (!config.get('jwtPrivateKey')) {
+/* if (!config.get('jwtPrivateKey')) {
   console.error("FATAL ERROR: jwtPrivateKey is not defined");
   process.exit(1);
+} */
+const result = dotenv.config();
+if (result.error) {
+  throw result.error;
 }
+console.log(result.parsed);
 
 app.use(json());
 app.use(urlencoded({ extended: true }));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-app.use('/api/v1/messages', messages);
-app.use('/api/v1/auth', auth);
+app.use('/api/v2/messages', messages);
+app.use('/api/v2/auth', auth);
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3000;
 
 const server = app.listen(port, () => console.log(`Listening on port ${port}...`));
 export default server;
