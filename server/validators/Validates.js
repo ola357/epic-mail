@@ -37,5 +37,12 @@ class Validate {
     };
     return Joi.validate(message, schema);
   }
+
+  static createGroup(user) {
+    const schema = {
+      name: Joi.string().min(3).max(20).required(),
+    };
+    return Joi.validate(user, schema);
+  }
 }
 export default Validate;

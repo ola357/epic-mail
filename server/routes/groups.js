@@ -1,11 +1,22 @@
 import express from 'express';
-import GroupControllers from '../controllers/GroupsController';
+import GroupsController from '../controllers/GroupsController';
+import Authorise from '../middleware/Authorise';
 
 const router = express.Router();
 
-router.post('/signup', AuthControllers.userSignUp);
 
-router.post('/login', AuthControllers.userLogin);
+router.post('/', Authorise.protect, GroupsController.createGroup);
 
-router.post('/reset', AuthControllers.userResetPassword);
+router.get('/', Authorise.protect, GroupsController.getGroups);
+
+// router.patch('/:groupId/name', Authorise.protect, );
+
+// router.delete('/:groupId', Authorise.protect, );
+
+// router.post('/:groupId/users', Authorise.protect, );
+
+// router.post('/:groupId/messages', Authorise.protect, );
+
+// router.delete('/:groupId/users/:userId', Authorise.protect, );
+
 export default router;

@@ -1,26 +1,37 @@
-import { should as _should, use, request } from 'chai';
+import { should, use, request } from 'chai';
 import chaiHttp from 'chai-http';
+import db from '../server/models/db';
 
 import server from '../server/app';
-import { users } from '../server/models/users';
-
+// import { users } from '../server/models/users';
+process.env.NODE_ENV = 'test';
 // eslint-disable-next-line no-unused-vars
-const should = _should();
+should();
 use(chaiHttp);
+
 
 //  PARENT BLOCK
 describe('Authentication', () => {
   // Test the /POST auth/signup route
+  after(async (done) => {
+    db.query(`
+    DELETE FROM users 
+    WHERE email = ($1)`,
+    ["angela@epicmail.com"]).then(() => {
+      db.end();
+    });
+    done();
+  });
   describe('/POST auth/signup', () => {
     it('it should signup a new user', (done) => {
       const user = {
-        email: "andela@epicmail.com",
-        firstName: "John",
-        lastName: "Bull",
+        email: "angela@epicmail.com",
+        firstname: "John",
+        lastname: "Bull",
         password: "growing15",
       };
       request(server)
-        .post('/api/v1/auth/signup')
+        .post('/api/v2/auth/signup')
         .send(user)
         .end((err, res) => {
           res.should.have.status(200);
@@ -32,24 +43,28 @@ describe('Authentication', () => {
     it('validation logic should kick in', (done) => {
       const user = {
         email: "a",
-        firstName: "John",
-        lastName: "Bull",
+        firstname: "John",
+        lastname: "Bull",
         password: "growing15",
       };
       request(server)
-        .post('/api/v1/auth/signup')
+        .post('/api/v2/auth/signup')
         .send(user)
         .end((err, res) => {
           res.should.have.status(400);
           res.body.should.be.a('object');
-          res.should.be.json;
           done();
         });
     });
     it('throw error if user already registered', (done) => {
       request(server)
-        .post('/api/v1/auth/signup')
-        .send(users[1])
+        .post('/api/v2/auth/signup')
+        .send({
+          email: "angela@epicmail.com",
+          firstname: "John",
+          lastname: "Bull",
+          password: "growing15",
+        })
         .end((err, res) => {
           res.should.have.status(400);
           res.body.should.be.a('object');
@@ -62,11 +77,11 @@ describe('Authentication', () => {
   describe('/POST auth/login', () => {
     it('it should login a user', (done) => {
       const user = {
-        email: "ola357@epicmail.com",
-        password: "abc123",
+        email: "angela@epicmail.com",
+        password: "growing15",
       };
       request(server)
-        .post('/api/v1/auth/login')
+        .post('/api/v2/auth/login')
         .send(user)
         .end((err, res) => {
           res.should.have.status(200);
@@ -81,12 +96,12 @@ describe('Authentication', () => {
         password: "growing15",
       };
       request(server)
-        .post('/api/v1/auth/login')
+        .post('/api/v2/auth/login')
         .send(user)
         .end((err, res) => {
           res.should.have.status(400);
           res.body.should.be.a('object');
-          res.should.be.json;
+          // res.should.be.json;
           done();
         });
     });
@@ -96,12 +111,12 @@ describe('Authentication', () => {
         password: "abc123",
       };
       request(server)
-        .post('/api/v1/auth/login')
+        .post('/api/v2/auth/login')
         .send(user)
         .end((err, res) => {
           res.should.have.status(400);
           res.body.should.be.a('object');
-          res.should.be.json;
+          // res.should.be.json;
           done();
         });
     });
@@ -111,12 +126,12 @@ describe('Authentication', () => {
         password: "freebie34",
       };
       request(server)
-        .post('/api/v1/auth/login')
+        .post('/api/v2/auth/login')
         .send(user)
         .end((err, res) => {
           res.should.have.status(400);
           res.body.should.be.a('object');
-          res.should.be.json;
+          // res.should.be.json;
           done();
         });
     });
