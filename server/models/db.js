@@ -7,20 +7,20 @@ let ssl;
 
 if (process.env.NODE_ENV === 'test') {
   connectString = {
-    user: 'postgres',
-    host: 'localhost',
-    database: 'epicmailtest',
-    password: '10million',
-    port: 5432,
+    user: process.env.DbUser,
+    host: process.env.DbHost,
+    database: process.env.DbDatabaseTest,
+    password: process.env.DbPassword,
+    port: process.env.DbPort,
   };
   ssl = true;
 } else {
   connectString = {
-    user: 'postgres',
-    host: 'localhost',
-    database: 'epicmail',
-    password: '10million',
-    port: 5432,
+    user: process.env.DbUser,
+    host: process.env.DbHost,
+    database: process.env.DbDatabase,
+    password: process.env.DbPassword,
+    port: process.env.DbPort,
   };
   ssl = false;
 }
