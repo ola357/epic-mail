@@ -1,8 +1,11 @@
 import { should, use, request } from 'chai';
 import chaiHttp from 'chai-http';
+import dotenv from 'dotenv';
 import db from '../server/models/db';
 
 import server from '../server/app';
+
+dotenv.config();
 // import { users } from '../server/models/users';
 process.env.NODE_ENV = 'test';
 // eslint-disable-next-line no-unused-vars
