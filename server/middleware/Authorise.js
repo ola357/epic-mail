@@ -1,5 +1,7 @@
 import jwt from 'jsonwebtoken';
-import config from 'config';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 class Authorise {
   static protect(req, res, next) {
@@ -7,7 +9,7 @@ class Authorise {
     if (!token) return res.status(401).send('Access denied. No token');
 
     try {
-      const decoded = jwt.verify(token, config.get('jwtPrivateKey'));
+      const decoded = jwt.verify(token, process.env.jwtPrivateKey);
       req.user = decoded;
       next();
     } catch (ex) {

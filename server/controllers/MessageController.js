@@ -1,8 +1,5 @@
-
-import messages from '../models/messages';
 import Validate from '../validators/Validates';
 import db from '../models/db';
-
 
 /**
  * Class representing API endpoints for
@@ -15,60 +12,84 @@ import db from '../models/db';
  */
 class MessagesController {
   static async getRecievedMessages(req, res) {
+    const userId = req.user._id;
     const inbox = await db.query(
-      'SELECT * FROM "messages" WHERE "status" = "read" OR "status" = "unread" ORDER BY "createdOn" DESC',
+      'SELECT * FROM messages WHERE recieverid = ($1) ORDER BY createdOn DESC', [userId],
     );
-    console.log(inbox);
-    /* const inbox = [];
-    for (let index = 0; index < messages.length; index += 1) {
-      if (messages[index].status === 'read' || messages[index].status === 'unread') {
-        inbox.push(messages[index]);
-      }
-    } */
-    res.status(200).send({ status: 200, data: inbox });
+    if (inbox.rowCount === 0 || inbox === null) {
+      return res.status(404).send({
+        status: 404,
+        error: "Inbox is empty.",
+      });
+    }
+
+    res.status(200).send({ status: 200, data: inbox.rows });
   }
 
   static async getUnreadMessages(req, res) {
+    const userId = req.user._id;
+    const status = "sent";
     const inbox = await db.query(
-      'SELECT * FROM "messages" WHERE "status" = "unread" ORDER BY "createdOn DESC',
+      'SELECT * FROM messages WHERE recieverid = ($1) AND status = ($2) ORDER BY createdOn DESC', [userId, status],
     );
-    /*  [];
-    for (let index = 0; index < messages.length; index += 1) {
-      if (messages[index].status === 'unread') {
-        inbox.push(messages[index]);
-      }
-    } */
-    res.status(200).send({ status: 200, data: inbox });
-  }
-
-  static getSentMessages(req, res) {
-    const sent = [];
-    for (let index = 0; index < messages.length; index += 1) {
-      if (messages[index].status === 'sent') {
-        sent.push(messages[index]);
-      }
+    if (inbox.rowCount === 0 || inbox === null) {
+      return res.status(404).send({
+        status: 404,
+        error: "No Unread messages.",
+      });
     }
-    res.status(200).send({ status: 200, data: sent });
+    res.status(200).send({ status: 200, data: inbox.rows });
   }
 
-  static getSpecificMessage(req, res) {
-    const message = messages.find(inbox => inbox.id === parseInt(req.params.id, 10));
-    if (!message) {
+  static async getSentMessages(req, res) {
+    const userId = req.user._id;
+    const sent = await db.query(
+      'SELECT * FROM messages WHERE senderid = ($1) ORDER BY createdOn DESC', [userId],
+    );
+    if (sent.rowCount === 0 || sent === null) {
+      return res.status(404).send({
+        status: 404,
+        error: "No Sent Messages.",
+      });
+    }
+    res.status(200).send({ status: 200, data: sent.rows });
+  }
+
+  static async getSpecificMessage(req, res) {
+    const mailId = parseInt(req.params.id, 10);
+    // eslint-disable-next-line no-restricted-globals
+    if (isNaN(mailId)) return res.status(400).send({ status: 400, error: "Bad Request" });
+    const mail = await db.query(
+      'SELECT * FROM messages WHERE id = ($1)', [mailId],
+    );
+    if (mail.rowCount === 0 || sent === null) {
       return res.status(404).send({
         status: 404,
         error: "The message with the given ID was not found.",
       });
     }
+
+    const {
+      id, createdon, subject, message, senderid, recieverid, parentmessageid, status,
+    } = mail.rows[0];
+
+    if (req.user_id === recieverid) {
+      await db.query(
+        'UPDATE messages SET status = ($1) WHERE id = ($2) RETURNING *', ["read", mailId],
+      );
+    }
+
     res.send({
       status: 200,
       data: [{
-        id: message.id,
-        createdOn: message.createdOn,
-        subject: message.subject,
-        senderId: message.senderId,
-        recieverId: message.recieverId,
-        parentMessageId: message.parentMessageId,
-        status: message.status,
+        id,
+        createdOn: createdon,
+        subject,
+        message,
+        senderId: senderid,
+        recieverId: recieverid,
+        parentMessageId: parentmessageid,
+        status,
       }],
     });
   }
@@ -88,37 +109,42 @@ class MessagesController {
 
     const recieverId = result.rows[0].id;
     const senderId = req.user._id;
-    // const createdOn = new Date().getTime();
 
     const email = await db.query(
-      'INSERT INTO messages(subject, message, parentmessageId, status, recieverid, senderid) VALUES($1,$2,$3,$4,$5,$6) RETURNING *',
+      `INSERT INTO messages(
+        subject, message, parentmessageId, status, recieverid, senderid) 
+         VALUES($1,$2,$3,$4,$5,$6) RETURNING *`,
       [subject, message, parentMessageId, status, recieverId, senderId],
     );
-    /*  {
-      createdOn: Date.now(),
-      subject,
-      message,
-      parentMessageId,
-      status,
-      recieverId: result.rows[0].id,
-      senderId: req.user.id,
-    };
-    messages.push(email); */
-    res.send({ status: 200, data: [email] });
+
+    res.send({ status: 200, data: [email.rows] });
   }
 
-  static deleteSpecificMessage(req, res) {
-    const message = messages.find(inbox => inbox.id === parseInt(req.params.id, 10));
-    if (!message) {
+  static async deleteSpecificMessage(req, res) {
+    const mailId = parseInt(req.params.id, 10);
+    // eslint-disable-next-line no-restricted-globals
+    if (isNaN(mailId)) return res.status(400).send({ status: 400, error: "Bad Request" });
+    const mail = await db.query(
+      'SELECT * FROM orders WHERE order_id = ($1)', [mailId],
+    );
+    if (mail.rowCount === 0 || sent === null) {
       return res.status(404).send({
         status: 404,
         error: "The message with the given ID was not found.",
       });
     }
 
-    const index = messages.indexOf(message);
-    messages.splice(index, 1);
-    res.send({ status: 200, data: [{ id: message.id, message: `${message.id} has been deleted` }] });
+    if (req.user_id === recieverid) {
+      await db.query(
+        'UPDATE messages SET recieverid = ($1) WHERE id = ($2) RETURNING *', [null, mailId],
+      );
+    }
+    if (req.user_id === senderid) {
+      await db.query(
+        'UPDATE messages SET senderid = ($1) WHERE id = ($2) RETURNING *', [null, mailId],
+      );
+    }
+    res.send({ status: 200, data: [{ message: `mail has been deleted` }] });
   }
 }
 export default MessagesController;

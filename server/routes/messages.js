@@ -5,15 +5,15 @@ import Authorise from '../middleware/Authorise';
 const router = express.Router();
 
 
-router.get('/', MessagesController.getRecievedMessages);
+router.get('/', Authorise.protect, MessagesController.getRecievedMessages);
 
-router.get('/unread', MessagesController.getUnreadMessages);
+router.get('/unread', Authorise.protect, MessagesController.getUnreadMessages);
 
-router.get('/sent', MessagesController.getSentMessages);
+router.get('/sent', Authorise.protect, MessagesController.getSentMessages);
 
-router.get('/:id', MessagesController.getSpecificMessage);
+router.get('/:id', Authorise.protect, MessagesController.getSpecificMessage);
 
 router.post('/', Authorise.protect, MessagesController.createNewMessage);
 
-router.delete('/:id', MessagesController.deleteSpecificMessage);
+router.delete('/:id', Authorise.protect, MessagesController.deleteSpecificMessage);
 export default router;
