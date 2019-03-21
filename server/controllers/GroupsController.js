@@ -97,6 +97,9 @@ class GroupsController {
     });
   }
 
+  /** *********************************
+ * Delete a Group
+ */
   static async deleteGroup() {
     const groupid = parseInt(req.params.groupId, 10);
     if (isNaN(groupid)) return res.status(400).send({ status: 400, error: "Bad Request" });
@@ -120,6 +123,142 @@ class GroupsController {
       WHERE id = ($1)`,
     [groupid]);
     res.send({ status: 200, data: [{ message: `group has been deleted` }] });
+  }
+
+  /** **********************************
+ * Adds a New user to Group
+ */
+  static async addUserToGroup() {
+    const groupid = parseInt(req.params.groupId, 10);
+    if (isNaN(groupid)) return res.status(400).send({ status: 400, error: "Bad Request" });
+
+    const { error } = Validate.addGroupUser(req.body);
+    if (error) return res.status(400).send({ status: 400, error: error.details[0].message });
+    const { email, status } = req.body;
+
+    const memberid = req.user._id;
+    const member = await db.query(
+      `SELECT role FROM groupmembers
+        WHERE memberid = ($1)
+        AND groupid = ($2)`,
+      [memberid, groupid],
+    );
+
+    if (member.rowCount === 0 || member.rows[0].role === 'member') {
+      return res.status(401).send({
+        status: 401,
+        error: "Not Allowed",
+      });
+    }
+
+    const user = await db.query(
+      `SELECT * FROM users
+        WHERE email = ($1)`,
+      [email],
+    );
+    if (user.rowCount === 0) {
+      return res.status(404).send({
+        status: 404,
+        error: "Not Allowed",
+      });
+    }
+
+    const result = await db.query(
+      `INSERT INTO groupmembers(groupid, memberid, role) 
+      VALUES($1, $2, $3) RETURNING *`,
+      [groupid, user.rows[0].id, status],
+    );
+    res.status(200).send({
+      status: 200,
+      data: [result.rows[0]],
+    });
+  }
+
+  /** ****************************************************
+   * Delete
+   * A User From a Group
+   */
+  static async deleteUser() {
+    const groupid = parseInt(req.params.groupId, 10);
+    if (isNaN(groupid)) return res.status(400).send({ status: 400, error: "Bad Request" });
+
+    const userid = parseInt(req.params.userId, 10);
+    if (isNaN(userid)) return res.status(400).send({ status: 400, error: "Bad Request" });
+
+    const memberid = req.user._id;
+    const member = await db.query(
+      `SELECT role FROM groupmembers
+        WHERE memberid = ($1)
+        AND groupid = ($2)`,
+      [memberid, groupid],
+    );
+
+    if (member.rowCount === 0 || member.rows[0].role === 'member') {
+      return res.status(401).send({
+        status: 401,
+        error: "Not Allowed",
+      });
+    }
+    await db.query(`
+      DELETE FROM groupmembers 
+      WHERE memberid = ($1) 
+      AND groupid = ($2) `,
+    [userid, groupid]);
+    res.send({ status: 200, data: [{ message: `user has been deleted` }] });
+  }
+
+  /** ***********************************
+   * Send Messages to Groups
+   */
+  static async createGroupMessages() {
+    const groupid = parseInt(req.params.groupId, 10);
+    if (isNaN(groupid)) return res.status(400).send({ status: 400, error: "Bad Request" });
+
+    const { error } = Validate.createGroupMessage(req.body);
+    if (error) return res.status(400).send({ status: 400, error: error.details[0].message });
+
+    const memberid = req.user._id;
+    const member = await db.query(
+      `SELECT * FROM groupmembers
+        WHERE memberid = ($1)
+        AND groupid = ($2)`,
+      [memberid, groupid],
+    );
+
+    if (member.rowCount === 0) {
+      return res.status(401).send({
+        status: 401,
+        error: "Not Allowed",
+      });
+    }
+
+    const {
+      subject, message, parentMessageId, status,
+    } = req.body;
+    let email;
+    member.rows.forEach(async (element) => {
+      const recieverId = element.memberid;
+      const senderId = req.user._id;
+
+      email = await db.query(
+        `INSERT INTO messages(
+          subject, message, parentmessageId, status, recieverid, senderid) 
+           VALUES($1,$2,$3,$4,$5,$6) RETURNING *`,
+        [subject, message, parentMessageId, status, recieverId, senderId],
+      );
+    });
+    const { id, createdon, parentmessageid } = email.rows[0];
+    res.send({
+      status: 200,
+      data: [{
+        id,
+        createdon,
+        subject: email.rows[0].subject,
+        message: email.rows[0].message,
+        parentmessageid,
+        status: email.rows[0].status,
+      }],
+    });
   }
 }
 export default GroupsController;

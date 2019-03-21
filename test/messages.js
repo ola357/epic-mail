@@ -1,11 +1,15 @@
-/* import { should as _should, use, request } from 'chai';
+import { should, use, request } from 'chai';
 import chaiHttp from 'chai-http';
 
 import server from '../server/app';
 
 // eslint-disable-next-line no-unused-vars
-const should = _should();
+should();
 use(chaiHttp);
+// eslint-disable-next-line max-len
+const token = `
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEzLCJfZW1haWwiOiJjcDNAZXBpY21haWwuY29tIiwiaWF0IjoxNTUyOTQ1Njc0fQ.RkH6jRZ5rK0694nvqveHH_hSXGFcB95JrW8KpZKR3UI
+`;
 
 //  PARENT BLOCK
 describe('Messages', () => {
@@ -13,7 +17,8 @@ describe('Messages', () => {
   describe('/GET messages', () => {
     it('it should GET all recieved messages', (done) => {
       request(server)
-        .get('/api/v1/messages')
+        .get('/api/v2/messages')
+        .set('x-auth-token', token)
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
@@ -28,7 +33,7 @@ describe('Messages', () => {
   describe('/GET messages/unread', () => {
     it('it should GET all recieved unread messages', (done) => {
       request(server)
-        .get('/api/v1/messages/unread')
+        .get('/api/v2/messages/unread')
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
@@ -43,7 +48,7 @@ describe('Messages', () => {
   describe('/GET messages/sent', () => {
     it('it should GET all the sent messages', (done) => {
       request(server)
-        .get('/api/v1/messages/sent')
+        .get('/api/v2/messages/sent')
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
@@ -58,7 +63,7 @@ describe('Messages', () => {
   describe('/GET/message/:id ', () => {
     it('it should GET a message by the given id', (done) => {
       request(server)
-        .get('/api/v1/messages/2')
+        .get('/api/v2/messages/2')
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
@@ -67,7 +72,7 @@ describe('Messages', () => {
     });
     it('it give an error when wrong id is sent', (done) => {
       request(server)
-        .get('/api/v1/messages/46')
+        .get('/api/v2/messages/46')
         .end((err, res) => {
           res.should.have.status(404);
           res.body.should.be.a('object');
@@ -87,7 +92,7 @@ describe('Messages', () => {
         status: "sent",
       };
       request(server)
-        .post('/api/v1/messages')
+        .post('/api/v2/messages')
         .send(message)
         .end((err, res) => {
           res.should.have.status(200);
@@ -103,7 +108,7 @@ describe('Messages', () => {
         status: "refactor",
       };
       request(server)
-        .post('/api/v1/messages')
+        .post('/api/v2/messages')
         .send(message)
         .end((err, res) => {
           res.should.have.status(400);
@@ -119,7 +124,7 @@ describe('Messages', () => {
   describe('/DELETE/messages/:id', () => {
     it('it should DELETE succesfully', (done) => {
       request(server)
-        .delete('/api/v1/messages/2')
+        .delete('/api/v2/messages/2')
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
@@ -129,7 +134,7 @@ describe('Messages', () => {
     });
     it('it should throw an error', (done) => {
       request(server)
-        .delete('/api/v1/messages/27')
+        .delete('/api/v2/messages/27')
         .end((err, res) => {
           res.should.have.status(404);
           res.body.should.be.a('object');
@@ -139,4 +144,3 @@ describe('Messages', () => {
     });
   });
 });
- */

@@ -26,4 +26,5 @@ if (process.env.NODE_ENV === 'test') {
 }
 
 const db = new Pool(connectString, ssl);
+// db.connect();
 export default db;

@@ -44,5 +44,23 @@ class Validate {
     };
     return Joi.validate(user, schema);
   }
+
+  static addGroupUser(user) {
+    const schema = {
+      email: Joi.string().email().required(),
+      role: Joi.string().lowercase().regex(/(admin|member)/).required(),
+    };
+    return Joi.validate(user, schema);
+  }
+
+  static createGroupMessage(message) {
+    const schema = {
+      subject: Joi.string().max(50).min(1).required(),
+      message: Joi.string().max(300).min(1).required(),
+      parentMessageId: Joi.number().integer(),
+      status: Joi.string().lowercase().regex(/(draft|sent)/).required(),
+    };
+    return Joi.validate(message, schema);
+  }
 }
 export default Validate;
