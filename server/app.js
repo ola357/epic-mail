@@ -9,12 +9,9 @@ import auth from './routes/auth';
 import models from './models/models';
 
 const app = express();
+dotenv.config();
 
-const result = dotenv.config();
-if (result.error) {
-  throw result.error;
-}
-console.log(result.parsed);
+// console.log(result.parsed);
 
 app.use(json());
 app.use(urlencoded({ extended: true }));
