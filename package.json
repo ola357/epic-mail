@@ -33,8 +33,8 @@
   },
   "scripts": {
     "test": "nyc mocha --require @babel/register --require @babel/polyfill --timeout=10000",
-    "start": "nodemon --exec babel-node server/app.js",
-    "build": "babel server --out-dir dist",
+    "start": "npm run build && node lib/app.js",
+    "build": "babel server --out-dir lib",
     "clean": "rm -rf dist && mkdir dist",
     "serve": "node dist/app.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
