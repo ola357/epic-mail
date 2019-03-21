@@ -2,10 +2,17 @@ import { Pool } from 'pg';
 import dotenv from 'dotenv';
 
 dotenv.config();
-let connectString;
-let ssl;
+const connectString = {
+  user: process.env.DbUser,
+  host: process.env.DbHost,
+  database: process.env.DbDatabase,
+  password: process.env.DbPassword,
+  port: process.env.DbPort,
+};
+const db = new Pool(connectString);
+// let ssl;
 
-if (process.env.NODE_ENV === 'test') {
+/* if (process.env.NODE_ENV === 'test') {
   connectString = {
     user: process.env.DbUser,
     host: process.env.DbHost,
@@ -25,6 +32,6 @@ if (process.env.NODE_ENV === 'test') {
   ssl = false;
 }
 
-const db = new Pool(connectString, ssl);
+const db = new Pool(connectString, ssl); */
 // db.connect();
 export default db;
