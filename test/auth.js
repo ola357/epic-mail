@@ -7,7 +7,7 @@ import server from '../server/app';
 
 dotenv.config();
 // import { users } from '../server/models/users';
-process.env.NODE_ENV = 'test';
+// process.env.NODE_ENV = 'test';
 // eslint-disable-next-line no-unused-vars
 should();
 use(chaiHttp);
