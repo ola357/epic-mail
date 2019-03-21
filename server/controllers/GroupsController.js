@@ -1,5 +1,6 @@
 import Validate from '../validators/Validates';
 import db from '../models/db';
+import { log } from 'util';
 
 /**
  * Class representing API endpoints for
@@ -100,7 +101,7 @@ class GroupsController {
   /** *********************************
  * Delete a Group
  */
-  static async deleteGroup() {
+  static async deleteGroup(req, res) {
     const groupid = parseInt(req.params.groupId, 10);
     if (isNaN(groupid)) return res.status(400).send({ status: 400, error: "Bad Request" });
 
@@ -128,7 +129,7 @@ class GroupsController {
   /** **********************************
  * Adds a New user to Group
  */
-  static async addUserToGroup() {
+  static async addUserToGroup(req, res) {
     const groupid = parseInt(req.params.groupId, 10);
     if (isNaN(groupid)) return res.status(400).send({ status: 400, error: "Bad Request" });
 
@@ -143,6 +144,8 @@ class GroupsController {
         AND groupid = ($2)`,
       [memberid, groupid],
     );
+
+  
 
     if (member.rowCount === 0 || member.rows[0].role === 'member') {
       return res.status(401).send({
@@ -178,7 +181,7 @@ class GroupsController {
    * Delete
    * A User From a Group
    */
-  static async deleteUser() {
+  static async deleteUser(req, res) {
     const groupid = parseInt(req.params.groupId, 10);
     if (isNaN(groupid)) return res.status(400).send({ status: 400, error: "Bad Request" });
 
@@ -210,7 +213,7 @@ class GroupsController {
   /** ***********************************
    * Send Messages to Groups
    */
-  static async createGroupMessages() {
+  static async createGroupMessages(req, res) {
     const groupid = parseInt(req.params.groupId, 10);
     if (isNaN(groupid)) return res.status(400).send({ status: 400, error: "Bad Request" });
 
@@ -235,18 +238,19 @@ class GroupsController {
     const {
       subject, message, parentMessageId, status,
     } = req.body;
-    let email;
+    // let email;
     member.rows.forEach(async (element) => {
-      const recieverId = element.memberid;
+      const receiverId = element.memberid;
       const senderId = req.user._id;
 
-      email = await db.query(
+     let email = await db.query(
         `INSERT INTO messages(
-          subject, message, parentmessageId, status, recieverid, senderid) 
+          subject, message, parentmessageid, status, receiverid, senderid) 
            VALUES($1,$2,$3,$4,$5,$6) RETURNING *`,
-        [subject, message, parentMessageId, status, recieverId, senderId],
+        [subject, message, parentMessageId, status, receiverId, senderId],
       );
     });
+    console.log("balls: ", email);
     const { id, createdon, parentmessageid } = email.rows[0];
     res.send({
       status: 200,

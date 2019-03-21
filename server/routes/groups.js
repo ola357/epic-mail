@@ -9,14 +9,14 @@ router.post('/', Authorise.protect, GroupsController.createGroup);
 
 router.get('/', Authorise.protect, GroupsController.getGroups);
 
-// router.patch('/:groupId/name', Authorise.protect, );
+router.patch('/:groupId/name', Authorise.protect,  GroupsController.editGroupName);
 
-// router.delete('/:groupId', Authorise.protect, );
+ router.delete('/:groupId', Authorise.protect, GroupsController.deleteGroup);
 
-// router.post('/:groupId/users', Authorise.protect, );
+ router.post('/:groupId/users', Authorise.protect, GroupsController.addUserToGroup);
 
-// router.post('/:groupId/messages', Authorise.protect, );
+ router.post('/:groupId/messages', Authorise.protect, GroupsController.createGroupMessages);
 
-// router.delete('/:groupId/users/:userId', Authorise.protect, );
+ router.delete('/:groupId/users/:userId', Authorise.protect, GroupsController.deleteUser);
 
 export default router;

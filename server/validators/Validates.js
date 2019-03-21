@@ -48,7 +48,7 @@ class Validate {
   static addGroupUser(user) {
     const schema = {
       email: Joi.string().email().required(),
-      role: Joi.string().lowercase().regex(/(admin|member)/).required(),
+      status: Joi.string().lowercase().regex(/(admin|member)/).required(),
     };
     return Joi.validate(user, schema);
   }
