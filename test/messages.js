@@ -1,7 +1,7 @@
-/* import { should, use, request } from 'chai';
+import { should, use, request } from 'chai';
 import chaiHttp from 'chai-http';
 import dotenv from 'dotenv';
-import jwt from 'jsonwebtoken';
+// import jwt from 'jsonwebtoken';
 
 import server from '../server/app';
 
@@ -10,10 +10,10 @@ dotenv.config();
 should();
 use(chaiHttp);
 // eslint-disable-next-line max-len
-const token = jwt.sign({
+/* const token = jwt.sign({
   _id: 12,
   _email: "dwade@epicmail.com",
-}, process.env.jwtPrivateKey);
+}, process.env.jwtPrivateKey); */
 //  PARENT BLOCK
 describe('Messages', () => {
   //    Test the /GET messages route
@@ -21,7 +21,7 @@ describe('Messages', () => {
     it('it should GET all recieved messages', (done) => {
       request(server)
         .get('/api/v2/messages')
-        .set('x-auth-token', token)
+        .set('x-auth-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjQsIl9lbWFpbCI6ImxqYW1lc0BlcGljbWFpbC5jb20iLCJpYXQiOjE1NTMxNjQ1Mzh9.XpBxX2AXMQW5Mzhe-IOmjQ1ywUQ6p6jWdQcX_-twYKc')
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
@@ -37,7 +37,7 @@ describe('Messages', () => {
     it('it should GET all recieved unread messages', (done) => {
       request(server)
         .get('/api/v2/messages/unread')
-        .set('x-auth-token', token)
+        .set('x-auth-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjQsIl9lbWFpbCI6ImxqYW1lc0BlcGljbWFpbC5jb20iLCJpYXQiOjE1NTMxNjQ1Mzh9.XpBxX2AXMQW5Mzhe-IOmjQ1ywUQ6p6jWdQcX_-twYKc')
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
@@ -53,7 +53,7 @@ describe('Messages', () => {
     it('it should GET all the sent messages', (done) => {
       request(server)
         .get('/api/v2/messages/sent')
-        .set('x-auth-token', token)
+        .set('x-auth-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjQsIl9lbWFpbCI6ImxqYW1lc0BlcGljbWFpbC5jb20iLCJpYXQiOjE1NTMxNjQ1Mzh9.XpBxX2AXMQW5Mzhe-IOmjQ1ywUQ6p6jWdQcX_-twYKc')
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
@@ -69,7 +69,7 @@ describe('Messages', () => {
     it('it should GET a message by the given id', (done) => {
       request(server)
         .get('/api/v2/messages/2')
-        .set('x-auth-token', token)
+        .set('x-auth-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjQsIl9lbWFpbCI6ImxqYW1lc0BlcGljbWFpbC5jb20iLCJpYXQiOjE1NTMxNjQ1Mzh9.XpBxX2AXMQW5Mzhe-IOmjQ1ywUQ6p6jWdQcX_-twYKc')
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
@@ -79,7 +79,7 @@ describe('Messages', () => {
     it('it give an error when wrong id is sent', (done) => {
       request(server)
         .get('/api/v2/messages/46')
-        .set('x-auth-token', token)
+        .set('x-auth-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjQsIl9lbWFpbCI6ImxqYW1lc0BlcGljbWFpbC5jb20iLCJpYXQiOjE1NTMxNjQ1Mzh9.XpBxX2AXMQW5Mzhe-IOmjQ1ywUQ6p6jWdQcX_-twYKc')
         .end((err, res) => {
           res.should.have.status(404);
           res.body.should.be.a('object');
@@ -94,12 +94,15 @@ describe('Messages', () => {
   describe('/POST messages', () => {
     it('it should create a new message', (done) => {
       const message = {
+        address: "scurry@epicmail",
         subject: "Unit Test",
         message: "Install mocha",
+        parentMessageId: 1,
         status: "sent",
       };
       request(server)
         .post('/api/v2/messages')
+        .set('x-auth-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjQsIl9lbWFpbCI6ImxqYW1lc0BlcGljbWFpbC5jb20iLCJpYXQiOjE1NTMxNjQ1Mzh9.XpBxX2AXMQW5Mzhe-IOmjQ1ywUQ6p6jWdQcX_-twYKc')
         .send(message)
         .end((err, res) => {
           res.should.have.status(200);
@@ -116,6 +119,7 @@ describe('Messages', () => {
       };
       request(server)
         .post('/api/v2/messages')
+        .set('x-auth-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjQsIl9lbWFpbCI6ImxqYW1lc0BlcGljbWFpbC5jb20iLCJpYXQiOjE1NTMxNjQ1Mzh9.XpBxX2AXMQW5Mzhe-IOmjQ1ywUQ6p6jWdQcX_-twYKc')
         .send(message)
         .end((err, res) => {
           res.should.have.status(400);
@@ -131,7 +135,8 @@ describe('Messages', () => {
   describe('/DELETE/messages/:id', () => {
     it('it should DELETE succesfully', (done) => {
       request(server)
-        .delete('/api/v2/messages/2')
+        .delete('/api/v2/messages/1')
+        .set('x-auth-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjQsIl9lbWFpbCI6ImxqYW1lc0BlcGljbWFpbC5jb20iLCJpYXQiOjE1NTMxNjQ1Mzh9.XpBxX2AXMQW5Mzhe-IOmjQ1ywUQ6p6jWdQcX_-twYKc')
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
@@ -141,7 +146,8 @@ describe('Messages', () => {
     });
     it('it should throw an error', (done) => {
       request(server)
-        .delete('/api/v2/messages/27')
+        .delete('/api/v2/messages/275')
+        .set('x-auth-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjQsIl9lbWFpbCI6ImxqYW1lc0BlcGljbWFpbC5jb20iLCJpYXQiOjE1NTMxNjQ1Mzh9.XpBxX2AXMQW5Mzhe-IOmjQ1ywUQ6p6jWdQcX_-twYKc')
         .end((err, res) => {
           res.should.have.status(404);
           res.body.should.be.a('object');
@@ -151,4 +157,3 @@ describe('Messages', () => {
     });
   });
 });
- */
