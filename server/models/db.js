@@ -3,11 +3,11 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 const connectString = {
-  user: process.env.DbUser,
-  host: process.env.DbHost,
-  database: process.env.DbDatabase,
+  user: "postgres",
+  host: "localhost",
+  database: "epicmail",
   password: process.env.DbPassword,
-  port: process.env.DbPort,
+  port: 5432,
 };
 const db = new Pool(connectString);
 // let ssl;
