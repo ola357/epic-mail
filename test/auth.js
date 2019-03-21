@@ -21,7 +21,6 @@ describe('Authentication', () => {
     DELETE FROM users 
     WHERE email = ($1)`,
     ["angela@epicmail.com"]).then(() => {
-      db.end();
     });
     done();
   });

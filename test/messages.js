@@ -1,16 +1,19 @@
-import { should, use, request } from 'chai';
+/* import { should, use, request } from 'chai';
 import chaiHttp from 'chai-http';
+import dotenv from 'dotenv';
+import jwt from 'jsonwebtoken';
 
 import server from '../server/app';
 
+dotenv.config();
 // eslint-disable-next-line no-unused-vars
 should();
 use(chaiHttp);
 // eslint-disable-next-line max-len
-const token = `
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEzLCJfZW1haWwiOiJjcDNAZXBpY21haWwuY29tIiwiaWF0IjoxNTUyOTQ1Njc0fQ.RkH6jRZ5rK0694nvqveHH_hSXGFcB95JrW8KpZKR3UI
-`;
-
+const token = jwt.sign({
+  _id: 12,
+  _email: "dwade@epicmail.com",
+}, process.env.jwtPrivateKey);
 //  PARENT BLOCK
 describe('Messages', () => {
   //    Test the /GET messages route
@@ -34,6 +37,7 @@ describe('Messages', () => {
     it('it should GET all recieved unread messages', (done) => {
       request(server)
         .get('/api/v2/messages/unread')
+        .set('x-auth-token', token)
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
@@ -49,6 +53,7 @@ describe('Messages', () => {
     it('it should GET all the sent messages', (done) => {
       request(server)
         .get('/api/v2/messages/sent')
+        .set('x-auth-token', token)
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
@@ -64,6 +69,7 @@ describe('Messages', () => {
     it('it should GET a message by the given id', (done) => {
       request(server)
         .get('/api/v2/messages/2')
+        .set('x-auth-token', token)
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
@@ -73,6 +79,7 @@ describe('Messages', () => {
     it('it give an error when wrong id is sent', (done) => {
       request(server)
         .get('/api/v2/messages/46')
+        .set('x-auth-token', token)
         .end((err, res) => {
           res.should.have.status(404);
           res.body.should.be.a('object');
@@ -144,3 +151,4 @@ describe('Messages', () => {
     });
   });
 });
+ */
