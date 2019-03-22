@@ -1,8 +1,8 @@
 import '@babel/polyfill';
 import express, { json, urlencoded } from 'express';
-import swaggerUi from 'swagger-ui-express';
+// import swaggerUi from 'swagger-ui-express';
 import dotenv from 'dotenv';
-import swaggerDocument from './swagger.json';
+// import swaggerDocument from './swagger.json';
 import messages from './routes/messages';
 import groups from './routes/groups';
 import auth from './routes/auth';
@@ -15,7 +15,7 @@ dotenv.config();
 
 app.use(json());
 app.use(urlencoded({ extended: true }));
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+// app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/api/v2/messages', messages);
 app.use('/api/v2/groups', groups);
 app.use('/api/v2/auth', auth);
