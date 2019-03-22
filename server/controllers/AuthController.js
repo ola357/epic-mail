@@ -26,9 +26,9 @@ class AuthControllers {
     if (error) return res.status(400).send({ status: 400, error: error.details[0].message });
 
     const {
-      email, firstname, lastname, password,
+      username, firstname, lastname, password,
     } = req.body;
-
+    const email = username;
     let user = await db.query(
       'SELECT * FROM users WHERE email = ($1)', [email],
     );
