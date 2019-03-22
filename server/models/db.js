@@ -10,11 +10,8 @@ dotenv.config();
   port: 5432,
 }; */
 const db = new Pool({
-  user: "postgres",
-  host: "localhost",
-  database: "epicmail",
-  password: process.env.DbPassword,
-  port: 5432,
+  connectionString: process.env.DATABASE_URL,
+  ssl: true,
 });
 // let ssl;
 /* {
