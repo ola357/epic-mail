@@ -7,7 +7,7 @@ import server from '../server/app';
 
 dotenv.config();
 // import { users } from '../server/models/users';
-// process.env.NODE_ENV = 'test';
+process.env.NODE_ENV = 'test';
 // eslint-disable-next-line no-unused-vars
 should();
 use(chaiHttp);
@@ -27,7 +27,7 @@ describe('Authentication', () => {
   describe('/POST auth/signup', () => {
     it('it should signup a new user', (done) => {
       const user = {
-        email: "angela@epicmail.com",
+        username: "angela@epicmail.com",
         firstname: "John",
         lastname: "Bull",
         password: "growing15",
@@ -62,7 +62,7 @@ describe('Authentication', () => {
       request(server)
         .post('/api/v2/auth/signup')
         .send({
-          email: "angela@epicmail.com",
+          username: "angela@epicmail.com",
           firstname: "John",
           lastname: "Bull",
           password: "growing15",

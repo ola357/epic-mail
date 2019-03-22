@@ -2,19 +2,19 @@ import { Pool } from 'pg';
 import dotenv from 'dotenv';
 
 dotenv.config();
-/* const connectString = {
+const connectString = {
   user: "postgres",
   host: "localhost",
   database: "epicmail",
   password: process.env.DbPassword,
   port: 5432,
-}; */
-const db = new Pool({
+};
+const db = new Pool(connectString);
+// let ssl;
+/* {
   connectionString: process.env.DATABASE_URL,
   ssl: true,
-});
-// let ssl;
-
+} */
 /* if (process.env.NODE_ENV === 'test') {
   connectString = {
     user: process.env.DbUser,
