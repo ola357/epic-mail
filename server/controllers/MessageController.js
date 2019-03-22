@@ -1,3 +1,4 @@
+
 import Validate from '../validators/Validates';
 import db from '../models/db';
 
@@ -17,12 +18,16 @@ class MessagesController {
   static async getRecievedMessages(req, res) {
     const userId = req.user._id;
     const inbox = await db.query(
-      'SELECT * FROM messages WHERE receiverid = ($1) ORDER BY createdon DESC', [userId],
+      `SELECT id, subject, message, parentmessageid, messages.senderid, inbox.receiverid, inbox.createdon, status 
+      FROM messages 
+      FULL JOIN inbox
+      ON inbox.messageid = messages.id 
+      WHERE inbox.receiverid = ($1) ORDER BY inbox.createdon DESC`, [userId],
     );
     if (inbox.rowCount === 0) {
-      return res.status(404).send({
-        status: 404,
-        error: "Inbox is empty.",
+      return res.status(200).send({
+        status: 200,
+        data: [],
       });
     }
 
@@ -35,16 +40,21 @@ class MessagesController {
 
   static async getUnreadMessages(req, res) {
     const userId = req.user._id;
-    const status = "sent";
     const inbox = await db.query(
-      'SELECT * FROM messages WHERE receiverid = ($1) AND status = ($2) ORDER BY createdon DESC', [userId, status],
+      `SELECT id, subject, message, parentmessageid, messages.senderid, inbox.receiverid, inbox.createdon, status 
+      FROM messages 
+      FULL JOIN inbox
+      ON inbox.messageid = messages.id 
+      WHERE inbox.receiverid = ($1)
+      AND inbox.status = ($2) ORDER BY inbox.createdon DESC`, [userId, "unread"],
     );
     if (inbox.rowCount === 0) {
-      return res.status(404).send({
-        status: 404,
-        error: "No Unread messages.",
+      return res.status(200).send({
+        status: 200,
+        data: [],
       });
     }
+
     res.status(200).send({ status: 200, data: inbox.rows });
   }
 
@@ -54,23 +64,69 @@ class MessagesController {
  */
   static async getSentMessages(req, res) {
     const userId = req.user._id;
-    const sent = await db.query(
-      'SELECT * FROM messages WHERE senderid = ($1) ORDER BY createdon DESC', [userId],
+    const inbox = await db.query(
+      `SELECT id, subject, message, parentmessageid, messages.senderid, sent.senderid, sent.createdon, status 
+      FROM messages 
+      FULL JOIN sent
+      ON sent.messageid = messages.id 
+      WHERE sent.senderid = ($1)
+      AND sent.status = ($2) ORDER BY sent.createdon DESC`, [userId, "sent"],
     );
-    if (sent.rowCount === 0) {
-      return res.status(404).send({
-        status: 404,
-        error: "No Sent Messages.",
+    if (inbox.rowCount === 0) {
+      return res.status(200).send({
+        status: 200,
+        data: [],
       });
     }
-    res.status(200).send({ status: 200, data: sent.rows });
+
+    res.status(200).send({ status: 200, data: inbox.rows });
   }
+
   /**
    *
    * Get A Specific Message
    */
-
   static async getSpecificMessage(req, res) {
+    const mailId = parseInt(req.params.messageid, 10);
+    // eslint-disable-next-line no-restricted-globals
+    if (isNaN(mailId)) return res.status(400).send({ status: 400, error: "Bad Request" });
+
+    const mail = await db.query(
+      `SELECT * FROM messages WHERE (receiverid = ($1) OR senderid = ($2)) 
+      AND id = ($3) `, [req.user._id, req.user._id, mailId],
+    );
+
+    if ((mail.rowCount === 0)) {
+      return res.status(404).send({
+        status: 404,
+        error: "The message with the given ID was not found.",
+      });
+    }
+    if (req.user_id === mail.rows[0].receiverid) {
+      await db.query(
+        `UPDATE inbox SET status = "read" WHERE receiverid = ($1) 
+        AND messageid = ($2) RETURNING *`, [mailId, mail.rows[0].id],
+      );
+    }
+    const {
+      id, createdon, subject, message, senderid, receiverid, parentmessageid, status,
+    } = mail.rows[0];
+    res.send({
+      status: 200,
+      data: [{
+        id,
+        createdOn: createdon,
+        subject,
+        message,
+        senderId: senderid,
+        receiverid,
+        parentMessageId: parentmessageid,
+        status,
+      }],
+    });
+  }
+
+  /* static async getSpecificMessage(req, res) {
     const mailId = parseInt(req.params.messageid, 10);
     // eslint-disable-next-line no-restricted-globals
     if (isNaN(mailId)) return res.status(400).send({ status: 400, error: "Bad Request" });
@@ -116,7 +172,7 @@ class MessagesController {
         status,
       }],
     });
-  }
+  } */
   /**
    *
    * Create a New message
@@ -140,9 +196,23 @@ class MessagesController {
 
     const email = await db.query(
       `INSERT INTO messages(
-        subject, message, parentmessageId, status, receiverid, senderid) 
-         VALUES($1,$2,$3,$4,$5,$6) RETURNING *`,
-      [subject, message, parentMessageId, status, receiverid, senderId],
+        subject, message, parentmessageId, receiverid, senderid) 
+         VALUES($1,$2,$3,$4,$5) RETURNING *`,
+      [subject, message, parentMessageId, receiverid, senderId],
+    );
+
+    await db.query(
+      `INSERT INTO inbox(
+        receiverid, messageid, status)
+        VALUES($1,$2,$3)`,
+      [email.rows[0].receiverid, email.rows[0].id, "unread"],
+    );
+
+    await db.query(
+      `INSERT INTO sent(
+        senderid, messageid, status)
+        VALUES($1,$2,$3)`,
+      [email.rows[0].senderid, email.rows[0].id, status],
     );
 
     res.send({ status: 200, data: [email.rows] });

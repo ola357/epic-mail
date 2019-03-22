@@ -14,10 +14,21 @@ const models = async () => {
     subject VARCHAR NOT NULL,
     message VARCHAR NOT NULL,
     parentmessageid INTEGER,
-    status VARCHAR NOT NULL,
     receiverid INTEGER REFERENCES users(id) ON DELETE CASCADE,
     senderid INTEGER REFERENCES users(id) ON DELETE CASCADE
     );`;
+  const createInboxTable = `CREATE TABLE IF NOT EXISTS inbox(
+      receiverid INTEGER REFERENCES users(id) ON DELETE CASCADE,
+      messageid INTEGER REFERENCES messages(id),
+      createdon timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      status VARCHAR NOT NULL
+      );`;
+  const createSentTable = `CREATE TABLE IF NOT EXISTS sent(
+        senderid INTEGER REFERENCES users(id) ON DELETE CASCADE,
+        messageid INTEGER REFERENCES messages(id),
+        createdon timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        status VARCHAR NOT NULL
+        );`;
   const createGroupsTable = `CREATE TABLE IF NOT EXISTS groups(
       id SERIAL PRIMARY KEY,
       name VARCHAR NOT NULL
@@ -27,6 +38,8 @@ const models = async () => {
         memberid INTEGER REFERENCES users(id) ON DELETE CASCADE,
         role VARCHAR NOT NULL
         );`;
-  await db.query(`${createUsersTable} ${createMessagesTable} ${createGroupsTable} ${createGroupMembersTable}`);
+  await db.query(`${createUsersTable} ${createMessagesTable} 
+  ${createSentTable} ${createInboxTable} 
+  ${createGroupsTable} ${createGroupMembersTable}`);
 };
 export default models;
