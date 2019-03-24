@@ -32,7 +32,7 @@ class AuthControllers {
     let user = await db.query(
       'SELECT * FROM users WHERE email = ($1)', [email],
     );
-    if (user.rowCount !== 0) return res.status(400).send({ status: 400, error: "user already exists" });
+    if (user.rowCount !== 0) return res.status(409).send({ status: 409, error: "user already exists" });
 
     const hashpassword = await bcrypt.hash(password, 10);
     user = await db.query(
