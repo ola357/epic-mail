@@ -43,7 +43,6 @@ dotenv.config();
 const db = new Pool(connectString, ssl); */
 // db.connect();
 let connectionString;
-let ssl;
 
 if (process.env.NODE_ENV === 'test') {
   connectionString = {
@@ -53,7 +52,6 @@ if (process.env.NODE_ENV === 'test') {
     password: process.env.DbPassword,
     port: 5432,
   };
-  ssl = true;
 } else {
   connectionString = {
     user: "postgres",
@@ -62,8 +60,7 @@ if (process.env.NODE_ENV === 'test') {
     password: process.env.DbPassword,
     port: 5432,
   };
-  ssl = false;
 }
-const db = new Pool(connectionString, ssl);
+const db = new Pool(connectionString);
 
 export default db;
