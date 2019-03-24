@@ -43,24 +43,27 @@ dotenv.config();
 const db = new Pool(connectString, ssl); */
 // db.connect();
 let connectionString;
+let ssl;
 
 if (process.env.NODE_ENV === 'test') {
   connectionString = {
     user: "postgres",
     host: "localhost",
-    database: "studio",
+    database: "epicmailtest",
     password: process.env.DbPassword,
     port: 5432,
   };
+  ssl = true;
 } else {
   connectionString = {
     user: "postgres",
     host: "localhost",
-    database: "creche",
+    database: "epicmail",
     password: process.env.DbPassword,
     port: 5432,
   };
+  ssl = false;
 }
-const db = new Pool(connectionString);
+const db = new Pool(connectionString, ssl);
 
 export default db;

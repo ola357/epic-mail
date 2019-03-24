@@ -1,11 +1,11 @@
 import { should, use, request } from 'chai';
 import chaiHttp from 'chai-http';
-import dotenv from 'dotenv';
+// import dotenv from 'dotenv';
 import db from '../server/models/db';
 
 import server from '../server/app';
 
-dotenv.config();
+// dotenv.config();
 // import { users } from '../server/models/users';
 process.env.NODE_ENV = 'test';
 console.log(process.env.NODE_ENV);
@@ -19,7 +19,7 @@ describe('Authentication', () => {
   // Test the /POST auth/signup route
   after(async (done) => {
     db.query(`
-    DELETE FROM users 
+    DELETE FROM users
     WHERE email = ($1)`,
     ["angela@epicmail.com"]).then(() => {
     });

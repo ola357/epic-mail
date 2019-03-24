@@ -7,7 +7,10 @@ script:
   - npm test
 services:
   - postgresql
+env:
+  - NODE_ENV=test
 cache:
   directories:
     - "node_modules"
-after_success: npm run coverage
+after_success :
+    - npm run coverage

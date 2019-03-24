@@ -1,10 +1,8 @@
 import { should, use, request } from 'chai';
 import chaiHttp from 'chai-http';
 import dotenv from 'dotenv';
-// import jwt from 'jsonwebtoken';
 
 import server from '../server/app';
-// import process = require('process');
 
 dotenv.config();
 // eslint-disable-next-line no-unused-vars
