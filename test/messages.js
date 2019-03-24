@@ -4,9 +4,11 @@ import dotenv from 'dotenv';
 // import jwt from 'jsonwebtoken';
 
 import server from '../server/app';
+// import process = require('process');
 
 dotenv.config();
 // eslint-disable-next-line no-unused-vars
+process.env.NODE_ENV = 'test';
 should();
 use(chaiHttp);
 // eslint-disable-next-line max-len

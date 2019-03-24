@@ -7,7 +7,8 @@ import server from '../server/app';
 
 dotenv.config();
 // import { users } from '../server/models/users';
-// process.env.NODE_ENV = 'test';
+process.env.NODE_ENV = 'test';
+console.log(process.env.NODE_ENV);
 // eslint-disable-next-line no-unused-vars
 should();
 use(chaiHttp);
@@ -68,7 +69,7 @@ describe('Authentication', () => {
           password: "growing15",
         })
         .end((err, res) => {
-          res.should.have.status(400);
+          res.should.have.status(409);
           res.body.should.be.a('object');
           res.should.be.json;
           done();
